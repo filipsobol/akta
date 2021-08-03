@@ -1,0 +1,32 @@
+{
+  "name": "@akta/app",
+  "version": "0.0.1",
+  "license": "MIT",
+  "type": "module",
+  "exports": "./dist/index.mjs",
+  "homepage": "https://github.com/aktajs/akta#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aktajs/akta.git"
+  },
+  "bugs": {
+    "url": "https://github.com/aktajs/akta/issues"
+  },
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "watch": "node ../../scripts/build --watch",
+    "build": "node ../../scripts/build"
+  },
+  "dependencies": {
+    "@vue/compiler-sfc": "^3.0.5",
+    "@vue/server-renderer": "^3.1.4",
+    "@vueuse/head": "^0.6.0",
+    "vue": "^3.1.5",
+    "vue-router": "^4.0.10"
+  },
+  "devDependencies": {
+    "vue-tsc": "^0.0.24"
+  }
+}

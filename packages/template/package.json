@@ -1,0 +1,16 @@
+{
+  "name": "@akta/template",
+  "version": "0.0.1",
+  "main": "index.js",
+  "scripts": {
+    "watch": "",
+    "build": "",
+    "start": ""
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@akta/app": "^0.0.1",
+    "@akta/plugin": "^0.0.1",
+    "akta": "^0.0.1"
+  }
+}
