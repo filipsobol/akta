@@ -80,6 +80,7 @@
     "resolveJsonModule": true
   },
   "exclude": [
+    "packages",
     "node_modules",
     "**/*/dist"
   ],
