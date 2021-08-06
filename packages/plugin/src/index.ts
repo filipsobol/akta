@@ -1,5 +1,6 @@
 import path from 'path';
 import Vue from '@vitejs/plugin-vue';
+import Pages from "vite-plugin-pages";
 import Markdown from 'vite-plugin-md';
 import RegisterComponents from 'vite-plugin-components';
 import MarkdownEmoji from 'markdown-it-emoji';
@@ -15,6 +16,15 @@ export default function framework() {
         /\.md$/
       ],
       ssr: true
+    }),
+
+    Pages({
+      pagesDir: 'pages',
+      extensions: [
+        'vue',
+        'md'
+      ],
+      importMode: 'async'
     }),
 
     RegisterComponents({

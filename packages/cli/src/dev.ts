@@ -14,10 +14,6 @@ async function dev(parameters: Record<string, string>, program: Command) {
     ...program.opts()
   };
 
-  console.log({
-    options
-  });
-
   const { app } = await createServer({
     root: process.cwd()
   });

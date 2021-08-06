@@ -7,4 +7,4 @@ meta:
 
 Hello world
 
-<Tes test="TEEEEEEST"></Tes>
+<Tes test="TEEEEEEST" />

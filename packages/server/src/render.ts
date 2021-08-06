@@ -1,13 +1,14 @@
 import { ViteDevServer } from 'vite';
 import { renderHeadToString } from '@vueuse/head';
 import { renderToString, SSRContext } from '@vue/server-renderer';
-import { CreateAktaFactory, CreateAkta } from '@akta/app';
-import { Configuration } from './types';
+import { CreateAktaFactory, CreateAkta, Configuration } from '@akta/app';
 
 export async function render(vite: ViteDevServer, url, manifest) {
   const createAkta: CreateAktaFactory = (await vite.ssrLoadModule('/entry.ts')).createAkta;
   const configuration: Configuration = (await vite.ssrLoadModule('/akta.config.ts')).default;
-  console.log(configuration);
+  console.log({
+    configuration
+  });
   const { app, router, head }: CreateAkta = createAkta();
 
   // set the router to the desired URL before rendering

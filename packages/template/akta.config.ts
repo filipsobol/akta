@@ -1,9 +1,9 @@
 import App from './App.vue';
+// @ts-ignore
+import routes from 'virtual:generated-pages';
 
 export default {
   app: App,
-
-  routes: import.meta.glob('./pages/*'),
-
+  routes,
   title: 'Akta App',
 };

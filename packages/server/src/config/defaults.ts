@@ -1,4 +1,4 @@
-import { Configuration } from "src/types";
+import { Configuration } from '@akta/app';
 
 export const configDefaults: Configuration = {
   title: 'Akta App',

@@ -1,17 +1,6 @@
 import { Express } from 'express';
 import { ViteDevServer } from 'vite';
-import { Component } from 'vue';
-
-export interface Configuration {
-  title: string;
-  server: {
-    port: number;
-  };
-  routes: Array<Record<string, Component>>;
-  build: {
-    outDir: string;
-  };
-}
+import { Configuration } from '@akta/app';
 
 export interface PrerenderParameters {
   root: string;

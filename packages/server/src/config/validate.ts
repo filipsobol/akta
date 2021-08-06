@@ -1,5 +1,5 @@
 import Joi from 'joi';
-import { Configuration } from '../types';
+import { Configuration } from '@akta/app';
 
 const serverSchema = {
   port: Joi.number().integer().min(1023).max(65535).required()

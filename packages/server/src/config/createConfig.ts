@@ -1,5 +1,5 @@
 import merge from 'lodash.merge';
-import { Configuration } from '../types';
+import { Configuration } from '@akta/app';
 import { configDefaults } from './defaults';
 import { validateConfig } from './validate';
 
