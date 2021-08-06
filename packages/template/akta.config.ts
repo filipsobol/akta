@@ -1,3 +1,9 @@
+import App from './App.vue';
+
 export default {
-  title: 'Akta App'
+  app: App,
+
+  routes: import.meta.glob('./pages/*'),
+
+  title: 'Akta App',
 };

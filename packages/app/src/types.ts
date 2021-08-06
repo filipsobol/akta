@@ -5,7 +5,6 @@ import { HeadClient } from '@vueuse/head';
 export interface AktaAppParams {
   App: Component;
   routes: any;
-  fn?: () => Promise<void>;
 }
 
 export interface CreateAkta {

@@ -1,1 +1,1 @@
-export default function framework(config: any): import("vite").Plugin[];
+export default function framework(): import("vite").Plugin[];

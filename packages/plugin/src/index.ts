@@ -7,7 +7,7 @@ import MarkdownPrism from 'markdown-it-prism';
 import MarkdownAnchor from 'markdown-it-anchor';
 import MarkdownToc from 'markdown-it-toc-done-right';
 
-export default function framework(config) {
+export default function framework() {
   return [
     Vue({
       include: [

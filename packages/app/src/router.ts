@@ -1,12 +1,12 @@
-import { Component } from 'vue';
 import {
   createMemoryHistory,
   createRouter as _createRouter,
-  createWebHistory
+  createWebHistory,
+  RouteRecordRaw
 } from 'vue-router';
 
 export function createRouter(isClient: boolean, pages) {
-  const routes = Object.entries(pages).map(([ path, component ]) => {
+  const routes: RouteRecordRaw[] = Object.entries(pages).map(([ path, component ]) => {
     // @ts-ignore
     let name = path
       .match(/\.\/pages(.*)\.(.*)$/)
@@ -21,8 +21,8 @@ export function createRouter(isClient: boolean, pages) {
     return {
       name,
       path: predefinedRoutes[name] ?? name,
-      component
-    };
+      component: async () => component
+    } as RouteRecordRaw;
   });
 
   return _createRouter({

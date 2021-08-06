@@ -3,7 +3,7 @@ import { createHead } from '@vueuse/head';
 import { createRouter } from './router';
 import { AktaAppParams, CreateAkta, CreateAktaFactory } from './types';
 
-export function createAktaApp({ App, routes, fn }: AktaAppParams): CreateAktaFactory {
+export function createAktaApp({ App, routes }: AktaAppParams): CreateAktaFactory {
   const isClient = !import.meta.env.SSR;
 
   function createAkta(): CreateAkta {

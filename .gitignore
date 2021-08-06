@@ -16,4 +16,8 @@ node_modules/
 .env
 .env.test
 
+# output directory
 dist
+
+# typescript
+*.tsbuildinfo

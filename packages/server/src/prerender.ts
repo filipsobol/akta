@@ -1,12 +1,4 @@
-import { resolve } from 'path';
-import { readFileSync, writeFileSync, readdirSync, unlinkSync } from 'fs';
-import { render } from '.';
-import { PrerenderParameters } from './types';
-
-export async function prerender ({
-  root,
-  configuration
-}: PrerenderParameters): Promise<void> {
+export async function prerender (): Promise<void> {
   // const outDir = resolve(root, configuration.build.outDir);
   
   // const manifest = await import(resolve(outDir, 'static/ssr-manifest.json'));
@@ -31,4 +23,3 @@ export async function prerender ({
 
   // unlinkSync(resolve(outDir, 'static/ssr-manifest.json'));
 }
-
