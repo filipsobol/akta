@@ -20,6 +20,7 @@
     "npm": ">= 7.0.0"
   },
   "scripts": {
+    "watch": "cd packages/template && npm run watch",
     "build": "npm run build --workspaces",
     "build:types": "tsc --build",
     "test": "npm run test --workspaces"
