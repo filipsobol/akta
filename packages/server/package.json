@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "license": "MIT",
   "type": "module",
+  "main": "./dist/index.mjs",
   "exports": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "homepage": "https://github.com/aktajs/akta#readme",
   "repository": {
     "type": "git",

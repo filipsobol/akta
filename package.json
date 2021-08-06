@@ -21,6 +21,7 @@
   },
   "scripts": {
     "build": "npm run build --workspaces",
+    "build:types": "tsc --build",
     "test": "npm run test --workspaces"
   },
   "dependencies": {

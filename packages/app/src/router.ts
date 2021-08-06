@@ -1,3 +1,4 @@
+import { Component } from 'vue';
 import {
   createMemoryHistory,
   createRouter as _createRouter,
@@ -6,6 +7,7 @@ import {
 
 export function createRouter(isClient: boolean, pages) {
   const routes = Object.entries(pages).map(([ path, component ]) => {
+    // @ts-ignore
     let name = path
       .match(/\.\/pages(.*)\.(.*)$/)
       [1]

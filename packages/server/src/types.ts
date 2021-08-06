@@ -2,6 +2,7 @@ import { Express } from 'express';
 import { ViteDevServer } from 'vite';
 
 export interface Configuration {
+  title: string;
   build: {
     outDir: string;
   }

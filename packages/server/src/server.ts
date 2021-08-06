@@ -24,13 +24,23 @@ export async function createServer({ root }: CreateAppParameters): Promise<Creat
   app.use('*', async (req, res) => {
     try {
       const url = req.originalUrl;
-      const { appHtml, preloadLinks } = await render(server, url, {});
+      const {
+        appHtml,
+        preloadLinks,
+        headTags,
+        htmlAttrs,
+        bodyAttrs
+      } = await render(server, url, {});
+
       const template = await server.transformIndexHtml(
         url,
         readFileSync(resolve('index.html'), 'utf-8')
       );
 
       const html = template
+        .replace('data-html-attrs', htmlAttrs)
+        .replace('data-body-attrs', bodyAttrs)
+        .replace('<!--head-tags-->', headTags)
         .replace(`<!--preload-links-->`, preloadLinks)
         .replace(`<!--app-html-->`, appHtml);
 

@@ -1,22 +1,24 @@
 import { createSSRApp } from 'vue';
 import { createHead } from '@vueuse/head';
 import { createRouter } from './router';
-import { AktaAppParams } from './types';
+import { AktaAppParams, CreateAkta, CreateAktaFactory } from './types';
 
-export function createAktaApp({ App, routes, fn }: AktaAppParams) {
-  const isClient = typeof window !== 'undefined';
+export function createAktaApp({ App, routes, fn }: AktaAppParams): CreateAktaFactory {
+  const isClient = !import.meta.env.SSR;
 
-  function createAkta() {
+  function createAkta(): CreateAkta {
     const app = createSSRApp(App);
     const router = createRouter(isClient, routes);
     const head = createHead();
 
-    app.use(router);
-    app.use(head);
+    app
+      .use(router)
+      .use(head);
 
     return {
       app,
-      router
+      router,
+      head
     };
   };
 

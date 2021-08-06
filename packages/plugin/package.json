@@ -25,7 +25,7 @@
     "markdown-it-prism": "^2.1.8",
     "markdown-it-toc-done-right": "^4.2.0",
     "string": "^3.3.3",
-    "vite-plugin-components": "^0.12.2",
+    "vite-plugin-components": "^0.13.2",
     "vite-plugin-md": "^0.6.7",
     "vite-plugin-pages": "^0.15.0"
   },
