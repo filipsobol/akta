@@ -6,7 +6,8 @@
   "homepage": "https://github.com/aktajs/akta#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aktajs/akta.git"
+    "url": "git+https://github.com/aktajs/akta.git",
+    "directory": "packages/plugin"
   },
   "bugs": {
     "url": "https://github.com/aktajs/akta/issues"

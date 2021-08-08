@@ -23,6 +23,7 @@
     "watch": "cd packages/template && npm run watch",
     "build": "npm run build --workspaces",
     "build:types": "tsc --build",
+    "build:clear": "rimraf packages/**/dist packages/**/tsconfig.tsbuildinfo",
     "test": "npm run test --workspaces"
   },
   "dependencies": {

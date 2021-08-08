@@ -10,7 +10,7 @@
   "license": "MIT",
   "dependencies": {
     "@akta/app": "^0.0.1",
-    "@akta/plugin": "^0.0.1",
-    "akta": "^0.0.1"
+    "@akta/cli": "^0.0.1",
+    "@akta/plugin": "^0.0.1"
   }
 }
