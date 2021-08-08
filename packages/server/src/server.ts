@@ -8,7 +8,7 @@ import { CreateApp, CreateAppParameters } from './types';
 
 export async function createServer({ root }: CreateAppParameters): Promise<CreateApp> {
   const vite = await createViteServer(root);
-  const contextFactory = await createContextFactory(vite);
+  const { configuration, createApp } = await createContextFactory(vite);
 
   const server = express();
   server.use(vite.middlewares);
@@ -23,9 +23,8 @@ export async function createServer({ root }: CreateAppParameters): Promise<Creat
         htmlAttrs,
         bodyAttrs
       } = await render({
-        vite,
         url,
-        context: contextFactory(),
+        context: createApp(),
         manifest: {}
       });
 
@@ -55,6 +54,8 @@ export async function createServer({ root }: CreateAppParameters): Promise<Creat
   return {
     server,
     vite,
+    configuration,
+    createApp
   };
 }
 

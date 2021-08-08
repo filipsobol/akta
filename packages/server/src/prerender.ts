@@ -1,25 +1,46 @@
-export async function prerender (): Promise<void> {
-  // const outDir = resolve(root, configuration.build.outDir);
-  
-  // const manifest = await import(resolve(outDir, 'static/ssr-manifest.json'));
-  // const template = readFileSync(resolve(outDir, 'static/index.html'), 'utf-8');
+import { resolve, join } from 'path';
+import { readFileSync, unlinkSync, writeFileSync } from 'fs';
+import { render } from './render';
+import { CreateApp, CreateAppParameters } from './types';
+import { createServer } from './server';
 
-  // const routesToPrerender = readdirSync(resolve(root, 'pages')).map(file => {
-  //   const name = file.replace(/\.(vue|md)$/, '').toLowerCase()
-  //   return name === 'index' ? `/` : `/${name}`
-  // });
+export async function prerender({ root }: CreateAppParameters): Promise<void> {
+  const {
+    vite,
+    configuration,
+    createApp
+  }: CreateApp = await createServer({ root });
 
-  // for (const url of routesToPrerender) {
-  //   const { appHtml, preloadLinks } = await render(url, manifest);
+  const outDir = resolve(root, vite.config.build.outDir);
+  const manifest = JSON.parse(readFileSync(resolve(outDir, 'ssr-manifest.json'), 'utf-8'));
+  const template = readFileSync(resolve(outDir, 'index.html'), 'utf-8');
+  const routesToPrerender = configuration.routes.map(route => route.path);
 
-  //   const html = template
-  //     .replace(`<!--preload-links-->`, preloadLinks)
-  //     .replace(`<!--app-html-->`, appHtml);
+  for (const url of routesToPrerender) {
+    const {
+      appHtml,
+      preloadLinks,
+      headTags,
+      htmlAttrs,
+      bodyAttrs
+    } = await render({
+      url,
+      context: createApp(),
+      manifest
+    });
 
-  //   const filePath = `static${url === '/' ? '/index' : url}.html`;
-  //   writeFileSync(resolve(outDir, filePath), html);
-  //   console.log(`Generated ${filePath}`);
-  // }
+    const html = template
+      .replace('data-html-attrs', htmlAttrs)
+      .replace('data-body-attrs', bodyAttrs)
+      .replace('<!--head-tags-->', headTags)
+      .replace(`<!--preload-links-->`, preloadLinks)
+      .replace(`<!--app-html-->`, appHtml);
 
-  // unlinkSync(resolve(outDir, 'static/ssr-manifest.json'));
+    const filePath = `${url === '/' ? 'index' : url}.html`;
+    writeFileSync(join(outDir, filePath), html);
+    console.log(`Generated ${filePath}`);
+  }
+
+  unlinkSync(resolve(outDir, 'ssr-manifest.json'));
+  vite.close();
 }

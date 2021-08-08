@@ -19,7 +19,8 @@ export interface AktaContext {
   configuration: Configuration;
 }
 
-
 export interface AktaContextFactory {
-  (): AktaContext;
+  configuration: Configuration;
+  createApp: () => AktaContext;
+  startClient: () => void;
 }

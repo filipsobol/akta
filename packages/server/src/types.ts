@@ -1,6 +1,6 @@
 import { Express } from 'express';
 import { ManifestChunk, ViteDevServer } from 'vite';
-import { AktaContext } from '@akta/app';
+import { AktaContext, AktaContextFactory, Configuration } from '@akta/app';
 
 export interface RenderParameters {
   url: string;
@@ -10,7 +10,9 @@ export interface RenderParameters {
 
 export interface CreateApp {
   server: Express;
-  vite: ViteDevServer | null;
+  vite: ViteDevServer;
+  configuration: Configuration;
+  createApp: AktaContextFactory['createApp'];
 }
 
 export interface CreateAppParameters {

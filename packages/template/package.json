@@ -4,8 +4,8 @@
   "main": "index.js",
   "scripts": {
     "watch": "akta dev",
-    "build": "",
-    "start": ""
+    "build": "vite build --ssrManifest && akta build",
+    "start": "vite preview"
   },
   "license": "MIT",
   "dependencies": {
