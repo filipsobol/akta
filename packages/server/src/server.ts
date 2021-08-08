@@ -1,27 +1,19 @@
-import vite from 'vite';
 import express from 'express';
 import { resolve } from 'path';
 import { readFileSync } from 'fs';
+import { AktaContextFactory } from '@akta/app';
+import { createServer as createVite, ViteDevServer } from 'vite';
 import { render } from './render';
 import { CreateApp, CreateAppParameters } from './types';
 
 export async function createServer({ root }: CreateAppParameters): Promise<CreateApp> {
-  const app = express();
-  const server = await vite.createServer({
-    root,
-    logLevel: 'info',
-    server: {
-      middlewareMode: 'ssr',
-      watch: {
-        usePolling: true,
-        interval: 100
-      }
-    },
-  })
+  const vite = await createViteServer(root);
+  const contextFactory = await createContextFactory(vite);
 
-  app.use(server.middlewares);
+  const server = express();
+  server.use(vite.middlewares);
 
-  app.use('*', async (req, res) => {
+  server.use('*', async (req, res) => {
     try {
       const url = req.originalUrl;
       const {
@@ -30,9 +22,14 @@ export async function createServer({ root }: CreateAppParameters): Promise<Creat
         headTags,
         htmlAttrs,
         bodyAttrs
-      } = await render(server, url, {});
+      } = await render({
+        vite,
+        url,
+        context: contextFactory(),
+        manifest: {}
+      });
 
-      const template = await server.transformIndexHtml(
+      const template = await vite.transformIndexHtml(
         url,
         readFileSync(resolve('index.html'), 'utf-8')
       );
@@ -49,14 +46,42 @@ export async function createServer({ root }: CreateAppParameters): Promise<Creat
         .set({ 'Content-Type': 'text/html' })
         .end(html);
     } catch (e) {
-      server?.ssrFixStacktrace(e);
+      vite?.ssrFixStacktrace(e);
       console.log(e.stack);
       res.status(500).end(e.stack);
     }
   })
 
   return {
-    app,
-    server
+    server,
+    vite,
   };
+}
+
+async function createViteServer(root: string): Promise<ViteDevServer> {
+  return await createVite({
+    root,
+    resolve: {
+      alias: {
+        '~/': root
+      }
+    },
+    server: {
+      fs: {
+        strict: true
+      },
+      middlewareMode: 'ssr',
+      watch: {
+        usePolling: true,
+        interval: 100
+      }
+    },
+    build: {
+      manifest: true
+    }
+  })
+}
+
+async function createContextFactory(vite: ViteDevServer): Promise<AktaContextFactory> {
+  return (await vite.ssrLoadModule('/akta.config.ts')).default;
 }

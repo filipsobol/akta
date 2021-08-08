@@ -1,12 +1,19 @@
-import { createSSRApp } from 'vue';
+import { createSSRApp, ref } from 'vue';
 import { createHead } from '@vueuse/head';
 import { createRouter } from './router';
-import { AktaAppParams, CreateAkta, CreateAktaFactory } from './types';
+import { Configuration, AktaContext, AktaContextFactory } from './types';
+import { createConfig } from './config/createConfig';
 
-export function createAktaApp({ App, routes }: AktaAppParams): CreateAktaFactory {
+export function createAktaApp(configuration: Configuration): AktaContextFactory {
   const isClient = !import.meta.env.SSR;
 
-  function createAkta(): CreateAkta {
+  const {
+    App,
+    routes,
+    head: headConfig
+  } = createConfig(configuration);
+
+  function createAkta(): AktaContext {
     const app = createSSRApp(App);
     const router = createRouter(isClient, routes);
     const head = createHead();
@@ -14,11 +21,14 @@ export function createAktaApp({ App, routes }: AktaAppParams): CreateAktaFactory
     app
       .use(router)
       .use(head);
+    
+    head.addHeadObjs(ref(headConfig));
 
     return {
       app,
       router,
-      head
+      head,
+      configuration
     };
   };
 

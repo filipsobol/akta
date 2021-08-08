@@ -14,9 +14,9 @@ async function dev(parameters: Record<string, string>, program: Command) {
     ...program.opts()
   };
 
-  const { app } = await createServer({
+  const { server } = await createServer({
     root: process.cwd()
   });
 
-  app.listen(3000, () => console.log('http://localhost:3000'));
+  server.listen(3000, () => console.log('http://localhost:3000'));
 }

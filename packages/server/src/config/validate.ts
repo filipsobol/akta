@@ -5,15 +5,11 @@ const serverSchema = {
   port: Joi.number().integer().min(1023).max(65535).required()
 };
 
-const buildSchema = {
-  outDir: Joi.string().trim()
-};
-
 const configSchema = Joi.object({
-  title: Joi.string().required(),
+  App: Joi.required(),
   server: Joi.object(serverSchema).required(),
   routes: Joi.array().required(),
-  build: Joi.object(buildSchema)
+  head: Joi.object()
 });
 
 export function validateConfig(configuration: Configuration) {

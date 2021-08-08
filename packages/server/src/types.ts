@@ -1,15 +1,16 @@
 import { Express } from 'express';
-import { ViteDevServer } from 'vite';
-import { Configuration } from '@akta/app';
+import { ManifestChunk, ViteDevServer } from 'vite';
+import { AktaContext } from '@akta/app';
 
-export interface PrerenderParameters {
-  root: string;
-  configuration: Configuration;
+export interface RenderParameters {
+  url: string;
+  context: AktaContext;
+  manifest: Record<string, ManifestChunk>;
 }
 
 export interface CreateApp {
-  app: Express;
-  server: ViteDevServer | null;
+  server: Express;
+  vite: ViteDevServer | null;
 }
 
 export interface CreateAppParameters {

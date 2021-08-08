@@ -2,18 +2,6 @@ import { defineConfig } from 'vite';
 import Akta from '@akta/plugin';
 
 export default defineConfig({
-  resolve: {
-    alias: {
-      '~/': __dirname
-    }
-  },
-
-  server: {
-    fs: {
-      strict: true,
-    },
-  },
-
   plugins: [
     Akta()
   ],
@@ -24,5 +12,5 @@ export default defineConfig({
       'vue',
       'vue-router'
     ]
-  },
+  }
 });
