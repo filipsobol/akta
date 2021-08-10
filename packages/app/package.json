@@ -23,13 +23,8 @@
     "build": "node ../../scripts/build"
   },
   "dependencies": {
-    "@vue/compiler-sfc": "^3.0.5",
-    "@vue/server-renderer": "^3.1.4",
     "@vueuse/head": "^0.6.0",
-    "vue": "^3.1.5",
+    "vue": "^3.2.0",
     "vue-router": "^4.0.10"
-  },
-  "devDependencies": {
-    "vue-tsc": "^0.0.24"
   }
 }

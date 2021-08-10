@@ -31,11 +31,7 @@ export function createAktaApp(configuration: Configuration): AktaContextFactory 
     };
   };
 
-  function startClient(): void {
-    if (!isClient) {
-      throw new Error('\'startClient\' should should not be called on server.');
-    }
-
+  if (isClient) {
     const { app, router } = createApp();
   
     // wait until router is ready before mounting to ensure hydration match
@@ -45,6 +41,5 @@ export function createAktaApp(configuration: Configuration): AktaContextFactory 
   return {
     configuration,
     createApp,
-    startClient
   };
 };

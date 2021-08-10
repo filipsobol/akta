@@ -24,18 +24,14 @@
   },
   "dependencies": {
     "@akta/app": "^0.0.1",
-    "@vue/compiler-sfc": "^3.0.5",
-    "@vue/server-renderer": "^3.1.4",
-    "@vueuse/head": "^0.6.0",
+    "@vue/compiler-sfc": "^3.2.0",
+    "@vue/server-renderer": "^3.2.0",
     "express": "^4.17.1",
     "joi": "^17.4.2",
     "lodash.merge": "^4.6.2",
-    "vite": "^2.4.0",
-    "vue": "^3.1.5",
-    "vue-router": "^4.0.10"
+    "vite": "^2.4.0"
   },
   "devDependencies": {
-    "@types/express": "^4.17.13",
-    "vue-tsc": "^0.0.24"
+    "@types/express": "^4.17.13"
   }
 }
