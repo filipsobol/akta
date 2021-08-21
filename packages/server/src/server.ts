@@ -1,14 +1,18 @@
 import express from 'express';
-import { resolve } from 'path';
 import { readFileSync } from 'fs';
+import { resolve, join } from 'path';
 import { AktaContextFactory } from '@akta/app';
 import { createServer as createVite, ViteDevServer } from 'vite';
 import { render } from './render';
 import { CreateApp, CreateAppParameters } from './types';
 
-export async function createServer({ root }: CreateAppParameters): Promise<CreateApp> {
+export async function createServer({ root, production }: CreateAppParameters): Promise<CreateApp> {
   const vite = await createViteServer(root);
-  const { configuration, createApp } = await createContextFactory(vite);
+  const { configuration, createApp } = await createContextFactory({
+    vite,
+    root,
+    production
+  });
 
   const server = express();
   server.use(vite.middlewares);
@@ -83,6 +87,8 @@ async function createViteServer(root: string): Promise<ViteDevServer> {
   })
 }
 
-async function createContextFactory(vite: ViteDevServer): Promise<AktaContextFactory> {
-  return (await vite.ssrLoadModule('/akta.config.ts')).default;
+async function createContextFactory({ vite, root, production }): Promise<AktaContextFactory> {
+  return production
+    ? (await import(join(root, './.akta/akta.config.js'))).default.default
+    : (await vite.ssrLoadModule('/akta.config.ts')).default;
 }

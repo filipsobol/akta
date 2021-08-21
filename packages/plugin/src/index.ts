@@ -14,8 +14,7 @@ export default function framework() {
       include: [
         /\.vue$/,
         /\.md$/
-      ],
-      ssr: true
+      ]
     }),
 
     Pages({

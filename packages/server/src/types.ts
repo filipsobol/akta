@@ -17,4 +17,5 @@ export interface CreateApp {
 
 export interface CreateAppParameters {
   root: string;
+  production: boolean;
 }

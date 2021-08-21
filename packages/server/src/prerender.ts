@@ -1,18 +1,19 @@
 import { resolve, join } from 'path';
-import { readFileSync, unlinkSync, writeFileSync } from 'fs';
+import { readFileSync, writeFileSync, rmSync } from 'fs';
 import { render } from './render';
 import { CreateApp, CreateAppParameters } from './types';
 import { createServer } from './server';
 
-export async function prerender({ root }: CreateAppParameters): Promise<void> {
+export async function prerender({ root, production }: CreateAppParameters): Promise<void> {
   const {
     vite,
     configuration,
     createApp
-  }: CreateApp = await createServer({ root });
+  }: CreateApp = await createServer({ root, production });
 
   const outDir = resolve(root, vite.config.build.outDir);
-  const manifest = JSON.parse(readFileSync(resolve(outDir, 'ssr-manifest.json'), 'utf-8'));
+  const ssrManifestPath = resolve(outDir, 'ssr-manifest.json');
+  const manifest = JSON.parse(readFileSync(ssrManifestPath, 'utf-8'));
   const template = readFileSync(resolve(outDir, 'index.html'), 'utf-8');
   const routesToPrerender = configuration.routes.map(route => route.path);
 
@@ -41,6 +42,7 @@ export async function prerender({ root }: CreateAppParameters): Promise<void> {
     console.log(`Generated ${filePath}`);
   }
 
-  unlinkSync(resolve(outDir, 'ssr-manifest.json'));
+  rmSync(ssrManifestPath);
+  rmSync(join(root, './.akta'), { recursive: true });
   vite.close();
 }

@@ -5,17 +5,18 @@ export function createDev(program: Command): void {
   program
     .command('dev')
     .description('Start Akta application in development mode')
-    .action(async (parameters) => await dev(parameters, program));
+    .action(async (parameters) => await command(parameters, program));
 }
 
-async function dev(parameters: Record<string, string>, program: Command) {
+async function command(parameters: Record<string, string>, program: Command) {
   const options = {
     ...parameters,
     ...program.opts()
   };
 
   const { server } = await createServer({
-    root: process.cwd()
+    root: process.cwd(),
+    production: false
   });
 
   server.listen(3000, () => console.log('http://localhost:3000'));
