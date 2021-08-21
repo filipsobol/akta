@@ -25,7 +25,8 @@
     "build:all": "npm run build:clear && npm run build && npm run build:types",
     "build:types": "tsc --build",
     "build:clear": "rimraf packages/**/dist packages/**/tsconfig.tsbuildinfo",
-    "test": "npm run test --workspaces"
+    "test": "npm run test --workspaces",
+    "publish": "npm run build:all && npm run test && npm publish --workspaces"
   },
   "dependencies": {
     "@types/node": "^16.4.2",

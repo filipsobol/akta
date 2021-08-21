@@ -15,9 +15,14 @@
   "files": [
     "dist/**"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "watch": "node ../../scripts/build --watch",
-    "build": "node ../../scripts/build"
+    "build": "node ../../scripts/build",
+    "test": "",
+    "prepare": "npm run build"
   },
   "dependencies": {
     "@vitejs/plugin-vue": "^1.2.4",
