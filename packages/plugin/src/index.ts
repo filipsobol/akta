@@ -1,4 +1,5 @@
 import path from 'path';
+import string from 'string';
 import Vue from '@vitejs/plugin-vue';
 import Pages from "vite-plugin-pages";
 import Markdown from 'vite-plugin-md';
@@ -7,6 +8,9 @@ import MarkdownEmoji from 'markdown-it-emoji';
 import MarkdownPrism from 'markdown-it-prism';
 import MarkdownAnchor from 'markdown-it-anchor';
 import MarkdownToc from 'markdown-it-toc-done-right';
+import { MarkdownLinksToVueRouterLinks } from './transformMarkdownLinks';
+
+const slugify = (s: string): string => string(s).slugify().toString();
 
 export default function framework() {
   return [
@@ -48,10 +52,21 @@ export default function framework() {
         typographer: true,
       },
       markdownItSetup(md) {
-        md.use(MarkdownAnchor);
+        md.use(MarkdownAnchor, {
+          level: 1,
+          slugify,
+          permalink: MarkdownAnchor.permalink.headerLink()
+        });
+
+        md.use(MarkdownToc, {
+          level: 1,
+          slugify,
+          containerClass: 'markdown-toc'
+        });
+
         md.use(MarkdownEmoji);
         md.use(MarkdownPrism);
-        md.use(MarkdownToc);
+        md.use(MarkdownLinksToVueRouterLinks);
       }
     })
   ];
