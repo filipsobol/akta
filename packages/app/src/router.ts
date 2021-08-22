@@ -1,11 +1,12 @@
-import { Configuration } from './types';
 import {
   createMemoryHistory,
   createRouter as _createRouter,
-  createWebHistory
+  createWebHistory,
+  RouteRecordRaw
 } from 'vue-router';
+import { Routes } from './types';
 
-export function createRouter(isClient: boolean, routes: Configuration['routes']) {
+export function createRouter(isClient: boolean, routes: Routes) {
   return _createRouter({
     history: isClient ? createWebHistory() : createMemoryHistory(),
     routes

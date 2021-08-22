@@ -3,12 +3,14 @@ import { App, Component } from 'vue';
 import { HeadClient, HeadObject } from '@vueuse/head';
 import { RouteRecordRaw } from 'vue-router';
 
+export type Routes = RouteRecordRaw[];
+
 export interface Configuration {
   App: Component;
   server: {
     port: number;
   };
-  routes: RouteRecordRaw[];
+  routes: Routes;
   head: HeadObject;
 }
 
