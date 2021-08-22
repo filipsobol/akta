@@ -20,7 +20,7 @@ export function createAktaApp(configuration: Configuration): AktaContextFactory 
     app
       .use(router)
       .use(head);
-    
+
     head.addHeadObjs(ref<HeadObject>(headConfig));
 
     return {

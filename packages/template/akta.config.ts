@@ -10,6 +10,12 @@ export default createAktaApp({
   },
   routes,
   head: {
-    title: 'Test head title'
+    title: 'Test head title',
+    meta: [
+      {
+        name: 'description',
+        content: 'This is sample application created using Akta framework.'
+      }
+    ]
   }
 });

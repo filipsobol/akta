@@ -37,7 +37,7 @@ export async function prerender({ root, production }: CreateAppParameters): Prom
       .replace(`<!--preload-links-->`, preloadLinks)
       .replace(`<!--app-html-->`, appHtml);
 
-    const filePath = `${url === '/' ? 'index' : url}.html`;
+    const filePath = `${url === '/' ? '/index' : url}.html`;
     writeFileSync(join(outDir, filePath), html);
     console.log(`Generated ${filePath}`);
   }

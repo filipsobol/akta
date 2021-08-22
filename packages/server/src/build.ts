@@ -11,7 +11,7 @@ async function buildClient(root: string): Promise<void> {
   await viteBuild({
     build: {
       outDir: join(root, './dist'),
-      minify: false,
+      minify: true,
       ssrManifest: true,
       rollupOptions: {
         input: {
@@ -27,7 +27,7 @@ async function buildServer(root: string): Promise<void> {
     build: {
       ssr: join(root, './akta.config.ts'),
       outDir: join(root, './.akta'),
-      minify: false,
+      minify: true,
       cssCodeSplit: false
     }
   });
