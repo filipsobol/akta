@@ -1,5 +1,5 @@
-import { resolve, join } from 'path';
-import { readFileSync, writeFileSync, rmSync } from 'fs';
+import { resolve, join, dirname } from 'path';
+import { readFileSync, writeFileSync, rmSync, existsSync, mkdirSync } from 'fs';
 import { render } from './render';
 import { CreateApp, CreateAppParameters } from './types';
 import { createServer } from './server';
@@ -38,7 +38,14 @@ export async function prerender({ root, production }: CreateAppParameters): Prom
       .replace(`<!--app-html-->`, appHtml);
 
     const filePath = `${url === '/' ? '/index' : url}.html`;
-    writeFileSync(join(outDir, filePath), html);
+    const outPath = join(outDir, filePath);
+    const outDirPath = dirname(outPath);
+
+    if (!existsSync(outDirPath)) {
+      mkdirSync(outDirPath, { recursive: true });
+    }
+
+    writeFileSync(outPath, html);
     console.log(`Generated ${filePath}`);
   }
 

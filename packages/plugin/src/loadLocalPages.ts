@@ -1,5 +1,5 @@
-import { parse } from 'path';
 import glob from 'fast-glob';
+import { parse, sep } from 'path';
 import { PagesPluginParameters } from './types';
 
 const VIRTUAL_NAME = 'virtual:local-routes';
@@ -9,7 +9,7 @@ const EXCLUDE = [
   '.git'
 ];
 
-export function pagesPlugin(userOptions: PagesPluginParameters) {
+export function pagesPlugin(options: PagesPluginParameters) {
   function isVirtualFile(id: string) {
     return id === VIRTUAL_NAME;
   }
@@ -27,48 +27,41 @@ export function pagesPlugin(userOptions: PagesPluginParameters) {
         return;
       }
 
-      const extensions = userOptions.extensions.join('|');
-      const pathGlobs = userOptions.paths.map(path => `${path}/**/*.(${extensions})`);
+      const extensions = options.extensions.join('|');
+      const pathGlobs = options.paths.map(path => `${path}/**/*.(${extensions})`);
     
       const paths = await glob(pathGlobs, {
-        ignore: [...EXCLUDE, ...userOptions.exclude],
+        ignore: [...EXCLUDE, ...options.exclude],
         dot: true,
         unique: true,
         onlyFiles: true
       });
 
-      const routes = paths.map(path => {
-        let { dir, base, ext, name } = parse(path);
+      const routes = paths.map(filePath => {
+        const rootDirName = options.paths.find(userPath => filePath.startsWith(userPath));
+        let { dir, name } = parse(filePath.replace(`${ rootDirName }${ sep }`, ''));
         let routerPath = name;
 
-        if (routerPath === 'index') {
+        if (isCatchAll(routerPath)) {
+          routerPath = ':all(.*)*';
+          name = '404';
+        }
+
+        if (isIndex(routerPath)) {
           routerPath = '';
         }
 
-        if (name.startsWith('[') && name.endsWith(']')) {
-          const result = name.match(/\[(.*)\]/);
-
-          if (Array.isArray(result)) {
-            routerPath = result[1];
-          }
-
-          if (routerPath === '...all') {
-            routerPath = ':all(.*)*';
-            name = '404';
-          }
-        }        
-
         return {
           name: `${ dir.replaceAll('/', '_') }_${ name }`,
-          routerPath: `/${ routerPath }`,
-          path,
+          routerPath: `/${ [dir, routerPath].filter(Boolean).join('/') }`,
+          filePath,
         };
       })
       .map(route => {
         return `{
           name: '${route.name}',
           path: '${route.routerPath}',
-          component: () => import('./${ route.path }'),
+          component: () => import('./${ route.filePath }'),
           props: true
         }`;
       });
@@ -80,4 +73,12 @@ export function pagesPlugin(userOptions: PagesPluginParameters) {
       `;
     }
   };
+}
+
+function isIndex(routerPath: string): boolean {
+  return routerPath === 'index';
+}
+
+function isCatchAll(routerPath: string): boolean {
+  return routerPath === '_all';
 }
