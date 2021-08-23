@@ -8,11 +8,12 @@ export function createDev(program: Command): void {
     .action(async (parameters) => await command(parameters, program));
 }
 
+// @ts-ignore
 async function command(parameters: Record<string, string>, program: Command) {
-  const options = {
-    ...parameters,
-    ...program.opts()
-  };
+  // const options = {
+  //   ...parameters,
+  //   ...program.opts()
+  // };
 
   const { server } = await createServer({
     root: process.cwd(),

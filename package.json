@@ -17,7 +17,7 @@
   ],
   "engines": {
     "node": ">=16.0.0",
-    "npm": ">= 7.0.0"
+    "npm": ">=7.0.0"
   },
   "scripts": {
     "watch": "cd packages/template && npm run watch",

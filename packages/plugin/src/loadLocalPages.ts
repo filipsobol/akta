@@ -17,7 +17,7 @@ export function pagesPlugin(options: PagesPluginParameters) {
   return {
     name: 'akta-plugin-pages',
     enforce: 'pre',
-    async resolveId(id: string) {
+    async resolveId(id: string): Promise<string | void> {
       if (isVirtualFile(id)) {
         return id;
       }

@@ -8,6 +8,7 @@ export function createBuild(program: Command): void {
     .action(async (parameters) => await command(parameters, program));
 }
 
+// @ts-ignore
 async function command(parameters: Record<string, string>, program: Command) {
   // const options = {
   //   ...parameters,

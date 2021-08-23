@@ -2,7 +2,7 @@ import { join } from 'path';
 import { build as viteBuild } from 'vite';
 import { CreateAppParameters } from './types';
 
-export async function build({ root, production }: CreateAppParameters): Promise<void> {
+export async function build({ root }: CreateAppParameters): Promise<void> {
   await buildClient(root);
   await buildServer(root);  
 }
