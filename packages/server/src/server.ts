@@ -4,6 +4,7 @@ import { resolve, join } from 'path';
 import { AktaContextFactory } from '@akta/app';
 import { createServer as createVite, ViteDevServer } from 'vite';
 import { render } from './render';
+import { renderRoute } from './renderRoute';
 import { CreateApp, CreateAppParameters } from './types';
 
 export async function createServer({ root, production }: CreateAppParameters): Promise<CreateApp> {
@@ -20,29 +21,18 @@ export async function createServer({ root, production }: CreateAppParameters): P
   server.use('*', async (req, res) => {
     try {
       const url = req.originalUrl;
-      const {
-        appHtml,
-        preloadLinks,
-        headTags,
-        htmlAttrs,
-        bodyAttrs
-      } = await render({
-        url,
-        context: createApp(),
-        manifest: {}
-      });
-
       const template = await vite.transformIndexHtml(
         url,
         readFileSync(resolve('index.html'), 'utf-8')
       );
 
-      const html = template
-        .replace('data-html-attrs', htmlAttrs)
-        .replace('data-body-attrs', bodyAttrs)
-        .replace('<!--head-tags-->', headTags)
-        .replace(`<!--preload-links-->`, preloadLinks)
-        .replace(`<!--app-html-->`, appHtml);
+      const html = await renderRoute({
+        url,
+        render,
+        manifest: {},
+        createApp,
+        template
+      });
 
       res
         .status(200)
