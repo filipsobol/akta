@@ -5,16 +5,10 @@ export function createBuild(program: Command): void {
   program
     .command('build')
     .description('Build Akta application in production mode')
-    .action(async (parameters) => await command(parameters, program));
+    .action(command);
 }
 
-// @ts-ignore
-async function command(parameters: Record<string, string>, program: Command) {
-  // const options = {
-  //   ...parameters,
-  //   ...program.opts()
-  // };
-
+async function command() {
   await build({
     root: process.cwd(),
     production: true
