@@ -4,13 +4,15 @@ import { render } from './render';
 import { createServer } from './server';
 import { renderRoute } from './renderRoute';
 import { CreateApp, CreateAppParameters } from './types';
+import { loadApplication } from './loadApplication';
 
 export async function prerender({ root, production }: CreateAppParameters): Promise<void> {
-  const {
+  const { vite }: CreateApp = await createServer({ root, production });
+  const { createApp, configuration } = await loadApplication({
     vite,
-    configuration,
-    createApp
-  }: CreateApp = await createServer({ root, production });
+    root,
+    production
+  });
 
   const outDir = resolve(root, join(root, './dist'));
   const ssrManifestPath = resolve(outDir, 'ssr-manifest.json');

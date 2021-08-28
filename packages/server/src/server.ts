@@ -1,20 +1,14 @@
 import express from 'express';
 import { readFileSync } from 'fs';
-import { resolve, join } from 'path';
-import { AktaContextFactory } from '@akta/app';
+import { resolve } from 'path';
 import { createServer as createVite, ViteDevServer } from 'vite';
 import { render } from './render';
 import { renderRoute } from './renderRoute';
+import { loadApplication } from './loadApplication';
 import { CreateApp, CreateAppParameters } from './types';
 
 export async function createServer({ root, production }: CreateAppParameters): Promise<CreateApp> {
   const vite = await createViteServer(root);
-  const { configuration, createApp } = await createContextFactory({
-    vite,
-    root,
-    production
-  });
-
   const server = express();
   server.use(vite.middlewares);
 
@@ -25,6 +19,11 @@ export async function createServer({ root, production }: CreateAppParameters): P
         url,
         readFileSync(resolve('index.html'), 'utf-8')
       );
+      const { createApp } = await loadApplication({
+        vite,
+        root,
+        production
+      });
 
       const html = await renderRoute({
         url,
@@ -38,7 +37,7 @@ export async function createServer({ root, production }: CreateAppParameters): P
         .status(200)
         .set({ 'Content-Type': 'text/html' })
         .end(html);
-    } catch (e) {
+    } catch (e: any) {
       vite?.ssrFixStacktrace(e);
       console.log(e.stack);
       res.status(500).end(e.stack);
@@ -47,9 +46,7 @@ export async function createServer({ root, production }: CreateAppParameters): P
 
   return {
     server,
-    vite,
-    configuration,
-    createApp
+    vite
   };
 }
 
@@ -75,10 +72,4 @@ async function createViteServer(root: string): Promise<ViteDevServer> {
       manifest: true
     }
   })
-}
-
-async function createContextFactory({ vite, root, production }): Promise<AktaContextFactory> {
-  return production
-    ? (await import(join(root, './.akta/akta.config.js'))).default.default
-    : (await vite.ssrLoadModule('/akta.config.ts')).default;
 }

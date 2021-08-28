@@ -1,5 +1,5 @@
 import { Command } from 'commander';
-import { createServer } from '@akta/server';
+import { createServer, loadApplication } from '@akta/server';
 
 export function createDev(program: Command): void {
   program
@@ -9,9 +9,18 @@ export function createDev(program: Command): void {
 }
 
 async function command() {
-  const { server, configuration } = await createServer({
-    root: process.cwd(),
-    production: false
+  const root = process.cwd();
+  const production = false;
+
+  const { server, vite } = await createServer({
+    root,
+    production
+  });
+
+  const { configuration } = await loadApplication({
+    vite,
+    root,
+    production
   });
 
   const port = configuration.server.port;
