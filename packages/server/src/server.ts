@@ -1,6 +1,8 @@
-import express from 'express';
-import { readFileSync } from 'fs';
 import { resolve } from 'path';
+import { readFileSync } from 'fs';
+import middie from 'middie';
+import fastify from 'fastify';
+import fastifyStatic from 'fastify-static';
 import { createServer as createVite, ViteDevServer } from 'vite';
 import { render } from './render';
 import { renderRoute } from './renderRoute';
@@ -9,12 +11,21 @@ import { CreateApp, CreateAppParameters } from './types';
 
 export async function createServer({ root, production }: CreateAppParameters): Promise<CreateApp> {
   const vite = await createViteServer(root);
-  const server = express();
+  const server = fastify({
+    logger: {
+      level: production ? 'error' : 'warn'
+    }
+  });
+
+  await server.register(middie);
+  // await server.register(fastifyStatic, {
+  //   root: resolve(root, vite.config.build.assetsDir)
+  // });
   server.use(vite.middlewares);
 
-  server.use('*', async (req, res) => {
+  server.get('*', async (req, res) => {
     try {
-      const url = req.originalUrl;
+      const url = req.url;
       const template = await vite.transformIndexHtml(
         url,
         readFileSync(resolve('index.html'), 'utf-8')
@@ -35,14 +46,16 @@ export async function createServer({ root, production }: CreateAppParameters): P
 
       res
         .status(200)
-        .set({ 'Content-Type': 'text/html' })
-        .end(html);
+        .header('Content-Type', 'text/html')
+        .send(html);
     } catch (e: any) {
       vite?.ssrFixStacktrace(e);
       console.log(e.stack);
-      res.status(500).end(e.stack);
+      res
+        .status(500)
+        .send(e.stack);
     }
-  })
+  });
 
   return {
     server,
@@ -59,9 +72,6 @@ async function createViteServer(root: string): Promise<ViteDevServer> {
       }
     },
     server: {
-      fs: {
-        strict: true
-      },
       middlewareMode: 'ssr',
       watch: {
         usePolling: true,

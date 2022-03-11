@@ -1,5 +1,5 @@
-import { Express } from 'express';
 import { AktaContext } from '@akta/app';
+import { FastifyInstance } from 'fastify';
 import { ManifestChunk, ViteDevServer } from 'vite';
 
 export interface RenderParameters {
@@ -9,7 +9,7 @@ export interface RenderParameters {
 }
 
 export interface CreateApp {
-  server: Express;
+  server: FastifyInstance;
   vite: ViteDevServer;
 }
 

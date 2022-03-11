@@ -31,6 +31,6 @@
   },
   "dependencies": {
     "@akta/server": "^0.0.1",
-    "commander": "^8.0.0"
+    "commander": "^9.0.0"
   }
 }

@@ -2,7 +2,7 @@ import path from 'path';
 import string from 'string';
 import Vue from '@vitejs/plugin-vue';
 import Markdown from 'vite-plugin-md';
-import RegisterComponents from 'vite-plugin-components';
+import RegisterComponents from 'unplugin-vue-components/vite';
 import MarkdownEmoji from 'markdown-it-emoji';
 import MarkdownPrism from 'markdown-it-prism';
 import MarkdownAnchor from 'markdown-it-anchor';

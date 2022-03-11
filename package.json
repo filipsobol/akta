@@ -17,7 +17,7 @@
   ],
   "engines": {
     "node": ">=16.0.0",
-    "npm": ">=7.0.0"
+    "npm": ">=8.0.0"
   },
   "scripts": {
     "watch": "cd packages/template && npm run watch",
@@ -29,9 +29,9 @@
     "publish": "npm run build:all && npm run test && npm publish --workspaces"
   },
   "dependencies": {
-    "@types/node": "^16.4.2",
-    "esbuild": "^0.12.15",
+    "@types/node": "^17.0.21",
+    "esbuild": "^0.14.25",
     "rimraf": "^3.0.2",
-    "typescript": "^4.3.5"
+    "typescript": "^4.6.2"
   }
 }
