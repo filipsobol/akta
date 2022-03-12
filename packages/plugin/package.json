@@ -22,7 +22,7 @@
     "watch": "node ../../scripts/build --watch",
     "build": "node ../../scripts/build",
     "test": "",
-    "prepare": "npm run build"
+    "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "@vitejs/plugin-vue": "^2.2.4",
