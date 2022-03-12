@@ -13,6 +13,8 @@ meta:
 const test: number = 1;
 ```
 
+<globalComponentTest />
+
 # Link
 
 [Homepage](/)
