@@ -1,5 +1,5 @@
 import path from 'path';
-import string from 'string';
+import slugify from 'slugify';
 import Vue from '@vitejs/plugin-vue';
 import Markdown from 'vite-plugin-md';
 import RegisterComponents from 'unplugin-vue-components/vite';
@@ -9,8 +9,6 @@ import MarkdownAnchor from 'markdown-it-anchor';
 import MarkdownToc from 'markdown-it-toc-done-right';
 import { pagesPlugin } from './loadLocalPages';
 import { MarkdownLinksToVueRouterLinks } from './transformMarkdownLinks';
-
-const slugify = (s: string): string => string(s).slugify().toString();
 
 export default function framework() {
   return [

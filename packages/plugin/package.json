@@ -31,7 +31,7 @@
     "markdown-it-emoji": "^2.0.0",
     "markdown-it-prism": "^2.2.3",
     "markdown-it-toc-done-right": "^4.2.0",
-    "string": "^3.3.3",
+    "slugify": "^1.6.5",
     "unplugin-vue-components": "^0.18.0",
     "vite-plugin-md": "^0.11.9",
     "vue-router": "^4.0.14"
