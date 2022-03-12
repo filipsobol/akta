@@ -89,6 +89,10 @@ function addPreloadLinks({
   modules,
   manifest
 }: AddPreloadLinksParameters) {
+  if (!Object.keys(manifest).length) {
+    return;
+  }
+  
   const link = Array
     .from(modules) // Convert Set to Array
     .map((module) => manifest[module]) // Get array of assets used in every module
