@@ -1,13 +1,13 @@
+import { render } from './render';
+
 export async function renderRoute({
   url,
-  render,
-  manifest,
   createApp,
-  template
+  template,
+  manifest = {},
 }) {
   const {
     appHtml,
-    preloadLinks,
     headTags,
     htmlAttrs,
     bodyAttrs
@@ -21,6 +21,5 @@ export async function renderRoute({
     .replace('data-html-attrs', htmlAttrs)
     .replace('data-body-attrs', bodyAttrs)
     .replace('<!--head-tags-->', headTags)
-    .replace(`<!--preload-links-->`, preloadLinks)
     .replace(`<!--app-html-->`, appHtml);
 }

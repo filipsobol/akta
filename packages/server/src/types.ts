@@ -1,11 +1,11 @@
 import { AktaContext } from '@akta/app';
 import { FastifyInstance } from 'fastify';
-import { ManifestChunk, ViteDevServer } from 'vite';
+import { ViteDevServer } from 'vite';
 
 export interface RenderParameters {
   url: string;
   context: AktaContext;
-  manifest: Record<string, ManifestChunk>;
+  manifest: Record<string, string[]>;
 }
 
 export interface CreateApp {
@@ -16,4 +16,10 @@ export interface CreateApp {
 export interface CreateAppParameters {
   root: string;
   production: boolean;
+}
+
+export interface AddPreloadLinksParameters {
+  context: AktaContext;
+  modules: Set<string>;
+  manifest: Record<string, string[]>;
 }

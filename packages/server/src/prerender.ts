@@ -1,6 +1,5 @@
 import { resolve, join, dirname } from 'path';
 import { readFileSync, writeFileSync, rmSync, existsSync, mkdirSync } from 'fs';
-import { render } from './render';
 import { createServer } from './server';
 import { renderRoute } from './renderRoute';
 import { CreateApp, CreateAppParameters } from './types';
@@ -21,9 +20,9 @@ export async function prerender({ root, production }: CreateAppParameters): Prom
   const routes = configuration.routes.map(route => buildRoute({
     url: route.path,
     outDir,
-    manifest,
     createApp,
-    template
+    template,
+    manifest
   }));
 
   await Promise.all(routes);
@@ -36,16 +35,15 @@ export async function prerender({ root, production }: CreateAppParameters): Prom
 async function buildRoute({
   url,
   outDir,
-  manifest,
   createApp,
-  template
+  template,
+  manifest,
 }) {
   const html = await renderRoute({
     url,
-    render,
-    manifest,
     createApp,
-    template
+    template,
+    manifest
   });
 
   const filePath = `${url === '/' ? '/index' : url}.html`;

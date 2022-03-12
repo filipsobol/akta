@@ -4,7 +4,6 @@ import middie from 'middie';
 import fastify from 'fastify';
 import fastifyStatic from 'fastify-static';
 import { createServer as createVite, ViteDevServer } from 'vite';
-import { render } from './render';
 import { renderRoute } from './renderRoute';
 import { loadApplication } from './loadApplication';
 import { CreateApp, CreateAppParameters } from './types';
@@ -38,8 +37,6 @@ export async function createServer({ root, production }: CreateAppParameters): P
 
       const html = await renderRoute({
         url,
-        render,
-        manifest: {},
         createApp,
         template
       });

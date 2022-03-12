@@ -4,11 +4,17 @@
 
     <div>Count: {{ counter }}</div>
 
+    <div>
+      <p>Image:</p>
+      <img :src="image">
+    </div>
+
     <button @click="handleClick">Increment</button>
   </div>
 </template>
 
 <script>
+import image from '../assets/logo.png';
 import { ref } from 'vue';
 
 export default {
@@ -21,6 +27,7 @@ export default {
     }
 
     return {
+      image,
       counter,
       handleClick
     };
