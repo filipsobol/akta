@@ -42,7 +42,11 @@ export default function framework() {
         'vue',
         'md'
       ],
-      customLoaderMatcher: path => path.endsWith('.md'),
+      include: [
+        /\.vue$/,
+        /\.vue\?vue/,
+        /\.md$/
+      ],
     }),
 
     Markdown({
