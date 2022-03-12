@@ -1,5 +1,5 @@
-import { createSSRApp } from 'vue';
-import { createHead, useHead } from '@vueuse/head';
+import { createSSRApp, ref } from 'vue';
+import { createHead, HeadObject } from '@vueuse/head';
 import { createRouter } from './router';
 import { Configuration, AktaContext, AktaContextFactory } from './types';
 
@@ -21,7 +21,7 @@ export function createAktaApp(configuration: Configuration): AktaContextFactory 
       .use(router)
       .use(head);
 
-    useHead(headConfig);
+    head.addHeadObjs(ref<HeadObject>(headConfig));
 
     return {
       app,
