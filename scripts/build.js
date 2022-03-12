@@ -1,16 +1,18 @@
-const cwdResolve = name => path.resolve(process.cwd(), name);
-
-const path = require('path');
+const { resolve, extname } = require('path');
 const rimraf = require('rimraf');
-const esbuild = require('esbuild');
+const { build } = require('esbuild');
+
+function cwdResolve(name) {
+  return resolve(process.cwd(), name);
+}
+
 const pkg = require(cwdResolve('package.json'));
+const isESM = extname(pkg.main) === '.mjs';
 
 // Remove old build
 rimraf.sync(cwdResolve('dist'));
 
-const isESM = pkg.type === 'module';
-
-esbuild.build({
+build({
   entryPoints: [
     cwdResolve('src/index.ts')
   ],

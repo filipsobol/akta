@@ -2,7 +2,6 @@
   "name": "@akta/cli",
   "version": "0.0.1",
   "license": "MIT",
-  "type": "module",
   "main": "./dist/index.mjs",
   "exports": "./dist/index.mjs",
   "bin": {
@@ -27,7 +26,7 @@
     "watch": "node ../../scripts/build --watch",
     "build": "node ../../scripts/build",
     "test": "",
-    "prepublishOnly": "npm run build"
+    "prepare": "npm run build"
   },
   "dependencies": {
     "@akta/server": "^0.0.1",

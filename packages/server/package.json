@@ -2,7 +2,6 @@
   "name": "@akta/server",
   "version": "0.0.1",
   "license": "MIT",
-  "type": "module",
   "main": "./dist/index.mjs",
   "exports": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
