@@ -5,9 +5,6 @@ import { RouteRecordRaw } from 'vue-router';
 
 export interface Configuration {
   App: Component;
-  server: {
-    port: number;
-  };
   routes: RouteRecordRaw[];
   head: HeadObject;
 }

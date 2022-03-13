@@ -5,9 +5,6 @@ import routes from 'virtual:local-routes';
 
 export default createAktaApp({
   App,
-  server: {
-    port: 3000
-  },
   routes,
   head: {
     title: 'Test head title',

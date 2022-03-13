@@ -1,29 +1,21 @@
 import { Command } from 'commander';
-import { createServer, loadApplication } from '@akta/server';
+import { createServer } from '@akta/server';
 
 export function createDev(program: Command): void {
   program
     .command('dev')
     .description('Start Akta application in development mode')
-    .action(command);
+    .action(() => command(program));
 }
 
-async function command() {
+async function command(program: Command) {
   const root = process.cwd();
-  const production = false;
+  const port = program.opts().port;
 
-  const { server, vite } = await createServer({
+  const { server } = await createServer({
     root,
-    production
+    production: false
   });
-
-  const { configuration } = await loadApplication({
-    vite,
-    root,
-    production
-  });
-
-  const port = configuration.server.port;
 
   server.listen(
     port,
