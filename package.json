@@ -20,7 +20,7 @@
     "npm": ">=8.0.0"
   },
   "scripts": {
-    "watch": "cd packages/template && npm run watch",
+    "dev": "cd packages/template && npm run dev",
     "start": "cd packages/template && npm run start",
     "build": "npm run build --workspaces",
     "build:all": "npm run build:clear && npm run build && npm run build:types",
