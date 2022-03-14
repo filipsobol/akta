@@ -1,24 +1,28 @@
 import { Command } from 'commander';
-import { createServer } from '@akta/server';
+import { createDevelopmentServer } from '@akta/server';
 
-export function createDev(program: Command): void {
-  program
-    .command('dev')
-    .description('Start Akta application in development mode')
-    .action(() => command(program));
+export function devCommand(): Command {
+  const command = new Command('dev');
+
+  command
+    .description('Start application server in development mode')
+    .option('-c, --config <path>', 'Set configuration path', 'akta.config.ts')
+    .option('-p, --port <port>', 'Which port to use', '3000')
+    .action(action);
+
+  return command;
 }
 
-async function command(program: Command) {
-  const root = process.cwd();
-  const port = program.opts().port;
-
-  const { server } = await createServer({
-    root,
-    production: false
-  });
+async function action(options: Record<string, any>): Promise<void> {
+  const server = await createDevelopmentServer(
+    process.cwd(),
+    options.config
+  );
 
   server.listen(
-    port,
-    () => console.log(`Akta server is running at http://localhost:${ port }`)
+    options.port,
+    (err, address) => {
+      console.log(`Akta server is running at ${ address }`);
+    }
   );
 }

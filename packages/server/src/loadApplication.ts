@@ -1,9 +1,15 @@
 
 import { join } from 'path';
+import { ViteDevServer } from 'vite';
 import { AktaContextFactory } from '@akta/app';
 
-export async function loadApplication({ vite, root, production }): Promise<AktaContextFactory> {
-  return production
-    ? (await import(join(root, './.akta/akta.config.js'))).default.default
-    : (await vite.ssrLoadModule('/akta.config.ts')).default;
+export async function loadProductionApplication(root: string): Promise<AktaContextFactory> {
+  return (await import(join(root, './.akta/akta.config.js'))).default.default;
+}
+
+export async function loadDevelopmentApplication(
+  vite: ViteDevServer,
+  optionsPath: string
+): Promise<AktaContextFactory> {
+  return (await vite.ssrLoadModule(optionsPath)).default;
 }

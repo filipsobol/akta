@@ -1,24 +1,16 @@
 import { resolve, join, dirname } from 'path';
 import { readFileSync, writeFileSync, rmSync, existsSync, mkdirSync } from 'fs';
-import { createServer } from './server';
 import { renderRoute } from './renderRoute';
-import { CreateApp, CreateAppParameters } from './types';
-import { loadApplication } from './loadApplication';
+import { loadProductionApplication } from './loadApplication';
 
-export async function prerender({ root, production }: CreateAppParameters): Promise<void> {
-  const { vite }: CreateApp = await createServer({ root, production });
-  const { createApp, configuration } = await loadApplication({
-    vite,
-    root,
-    production
-  });
-
-  const outDir = resolve(root, join(root, './dist'));
+export async function prerender(root: string): Promise<void> {
+  const { createApp, configuration } = await loadProductionApplication(root);
+  const outDir = resolve(root, './dist');
   const ssrManifestPath = resolve(outDir, 'ssr-manifest.json');
   const manifest = JSON.parse(readFileSync(ssrManifestPath, 'utf-8'));
   const template = readFileSync(resolve(outDir, 'index.html'), 'utf-8');
   const routes = configuration.routes.map(route => buildRoute({
-    url: route.path,
+    url: route.rawPath,
     outDir,
     createApp,
     template,
@@ -29,7 +21,6 @@ export async function prerender({ root, production }: CreateAppParameters): Prom
 
   rmSync(ssrManifestPath);
   rmSync(join(root, './.akta'), { recursive: true });
-  vite.close();
 }
 
 async function buildRoute({
@@ -46,7 +37,7 @@ async function buildRoute({
     manifest
   });
 
-  const filePath = `${url === '/' ? '/index' : url}.html`;
+  const filePath = `${ url }.html`;
   const outPath = join(outDir, filePath);
   const outDirPath = dirname(outPath);
 

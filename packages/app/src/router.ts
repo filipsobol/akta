@@ -1,12 +1,20 @@
 import {
   createMemoryHistory,
-  createRouter as _createRouter,
+  createRouter as createVueRouter,
   createWebHistory,
+  RouteRecordRaw,
 } from 'vue-router';
-import { Configuration } from './types';
+import { PagesPluginRoute } from '@akta/plugin';
 
-export function createRouter(isClient: boolean, routes: Configuration['routes']) {
-  return _createRouter({
+export function createRouter(isClient: boolean, rawRoutes: PagesPluginRoute[]) {
+  const routes: RouteRecordRaw[] = rawRoutes.map(route => ({
+    path: route.path,
+    component: route.component,
+    props: true,
+  }));
+
+
+  return createVueRouter({
     history: isClient ? createWebHistory() : createMemoryHistory(),
     routes
   })

@@ -1,23 +1,22 @@
 import { Command } from 'commander';
-import { build, prerender } from '@akta/server';
+import { build } from '@akta/server';
 
-export function createBuild(program: Command): void {
-  program
-    .command('build')
-    .description('Build Akta application in production mode')
-    .action(command);
+export function buildCommand(): Command {
+  const command = new Command('build');
+
+  command
+    .description('Build SSR application in production mode')
+    .option('-c, --config <path>', 'Set configuration path', 'akta.config.ts')
+    .action(action);
+  
+  return command;
 }
 
-async function command() {
+async function action(options: Record<string, any>): Promise<void> {
+  const root = process.cwd();
+
   await build({
-    root: process.cwd(),
-    production: true
+    root,
+    optionsPath: options.config
   });
-
-  await prerender({
-    root: process.cwd(),
-    production: true
-  });
-
-  console.log('Pre-rendering complete');
 }

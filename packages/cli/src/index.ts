@@ -1,21 +1,22 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
 import { version } from '../package.json';
-import { createBuild } from './build';
-import { createDev } from './dev';
-import { createStart } from './start';
+import { devCommand } from './dev';
+import { startCommand } from './start';
+import { buildCommand } from './build';
+import { previewCommand } from './preview';
+import { prerenderCommand } from './prerender';
 
 const program = new Command();
 
 program
+  .storeOptionsAsProperties(false)
   .version(version)
-  .option('-c, --config <path>', 'Set configuration path', 'akta.config.js')
-  .option('-p, --port <port>', 'Which port to use', '3000');
-
-[
-  createBuild,
-  createDev,
-  createStart
-].forEach(command => command(program));
-
-program.parseAsync(process.argv);
+  .name('Akta CLI')
+  .description('CLI for building, running, and previewing Akta applications')
+  .addCommand(devCommand())
+  .addCommand(startCommand())
+  .addCommand(buildCommand())
+  .addCommand(previewCommand())
+  .addCommand(prerenderCommand())
+  .parseAsync(process.argv);

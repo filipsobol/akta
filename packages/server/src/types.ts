@@ -1,6 +1,4 @@
 import { AktaContext } from '@akta/app';
-import { FastifyInstance } from 'fastify';
-import { ViteDevServer } from 'vite';
 
 export interface RenderParameters {
   url: string;
@@ -8,14 +6,9 @@ export interface RenderParameters {
   manifest: Record<string, string[]>;
 }
 
-export interface CreateApp {
-  server: FastifyInstance;
-  vite: ViteDevServer;
-}
-
 export interface CreateAppParameters {
   root: string;
-  production: boolean;
+  optionsPath: string;
 }
 
 export interface AddPreloadLinksParameters {

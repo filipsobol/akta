@@ -3,5 +3,5 @@ export { build } from './build';
 export { render } from './render';
 export { prerender } from './prerender';
 export { renderRoute } from './renderRoute';
-export { createServer } from './server';
-export { loadApplication } from './loadApplication';
+export { createSSRServer, createPreviewServer, createDevelopmentServer } from './server';
+export { loadProductionApplication, loadDevelopmentApplication } from './loadApplication';

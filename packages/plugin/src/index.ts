@@ -21,7 +21,6 @@ export default function framework() {
 
     pagesPlugin({
       paths: [
-        'components',
         'pages'
       ],
       extensions: [

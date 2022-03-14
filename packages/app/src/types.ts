@@ -1,11 +1,11 @@
 import { Router } from 'vue-router';
 import { App, Component } from 'vue';
+import { PagesPluginRoute } from '@akta/plugin';
 import { HeadClient, HeadObject } from '@vueuse/head';
-import { RouteRecordRaw } from 'vue-router';
 
 export interface Configuration {
   App: Component;
-  routes: RouteRecordRaw[];
+  routes: PagesPluginRoute[];
   head: HeadObject;
 }
 

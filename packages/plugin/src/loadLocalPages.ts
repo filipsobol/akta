@@ -1,5 +1,5 @@
+import { extname } from 'path';
 import glob from 'fast-glob';
-import { parse, sep } from 'path';
 import { PagesPluginParameters } from './types';
 
 const VIRTUAL_NAME = 'virtual:local-routes';
@@ -38,31 +38,13 @@ export function pagesPlugin(options: PagesPluginParameters) {
       });
 
       const routes = paths.map(filePath => {
-        const rootDirName = options.paths.find(userPath => filePath.startsWith(userPath));
-        let { dir, name } = parse(filePath.replace(`${ rootDirName }${ sep }`, ''));
-        let routerPath = name;
+        const rootDirName = options.paths.find(userPath => filePath.startsWith(userPath)) as string;
+        const rawPath = normalizeRawPath(filePath, rootDirName);
 
-        if (isCatchAll(routerPath)) {
-          routerPath = ':all(.*)*';
-          name = '404';
-        }
-
-        if (isIndex(routerPath)) {
-          routerPath = '';
-        }
-
-        return {
-          name: `${ dir.replaceAll('/', '_') }_${ name }`,
-          routerPath: `/${ [dir, routerPath].filter(Boolean).join('/') }`,
-          filePath,
-        };
-      })
-      .map(route => {
         return `{
-          name: '${route.name}',
-          path: '${route.routerPath}',
-          component: () => import('./${ route.filePath }'),
-          props: true
+          rawPath: '${ rawPath }',
+          path: '${ normalizeRouterPath(rawPath) }',
+          component: () => import('./${ filePath }')
         }`;
       });
 
@@ -75,10 +57,29 @@ export function pagesPlugin(options: PagesPluginParameters) {
   };
 }
 
-function isIndex(routerPath: string): boolean {
-  return routerPath === 'index';
+function normalizeRawPath(filePath: string, rootDirName: string): string {
+  return filePath
+    .replace(rootDirName, '') // Remove root dir
+    .replace(extname(filePath), ''); // Remove file extension
 }
 
-function isCatchAll(routerPath: string): boolean {
-  return routerPath === '_all';
+function normalizeRouterPath(path: string) {
+  const parts = path
+    .split('/')
+    .map((part: string) => {
+      if (!part.includes('[') || !part.includes(']')) {
+        return part;
+      }
+      
+      return part
+        .replaceAll(/^\[\.{3}(.*)\]$/g, ':$1(.*)') // Convert "[...id]" into ":id(.*)"
+        .replaceAll(/^\[(.*)\]$/g, ':$1') // Convert "[id]" into ":id"
+        .replaceAll(/\[(.*)\]/g, ':$1(.*)+') // Covert "path-[id]" into "/path-:id(.*)+"
+    });
+
+  if (parts.at(-1) === 'index') {
+    parts.pop(); // Remove "/index" if it's at the end of path
+  }
+
+  return parts.join('/') || '/';
 }
