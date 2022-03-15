@@ -8,13 +8,12 @@ export function createAktaApp(configuration: Configuration): AktaContextFactory 
 
   const {
     App,
-    routes,
     head: headConfig
   } = configuration;
 
   function createApp(): AktaContext {
     const app = createSSRApp(App);
-    const router = createRouter(isClient, routes);
+    const router = createRouter(isClient);
     const head = createHead();
 
     app

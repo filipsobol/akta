@@ -25,5 +25,8 @@ build({
   target: 'node16',
   watch: process.argv.includes('--watch'),
   logLevel: 'warning',
-  external: Object.keys(pkg.dependencies)
+  external: [
+    'virtual:local-routes',
+    ...Object.keys((pkg.dependencies || {})),
+  ]
 });

@@ -6,8 +6,11 @@ import {
 } from 'vue-router';
 import { PagesPluginRoute } from '@akta/plugin';
 
-export function createRouter(isClient: boolean, rawRoutes: PagesPluginRoute[]) {
-  const routes: RouteRecordRaw[] = rawRoutes.map(route => ({
+// @ts-ignore
+import rawRoutes from 'virtual:local-routes';
+
+export function createRouter(isClient: boolean) {
+  const routes: RouteRecordRaw[] = rawRoutes.map((route: PagesPluginRoute) => ({
     path: route.path,
     component: route.component,
     props: true,
