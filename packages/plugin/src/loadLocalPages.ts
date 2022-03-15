@@ -72,9 +72,8 @@ function normalizeRouterPath(path: string) {
       }
       
       return part
-        .replaceAll(/^\[\.{3}(.*)\]$/g, ':$1(.*)') // Convert "[...id]" into ":id(.*)"
-        .replaceAll(/^\[(.*)\]$/g, ':$1') // Convert "[id]" into ":id"
-        .replaceAll(/\[(.*)\]/g, ':$1(.*)+') // Covert "path-[id]" into "/path-:id(.*)+"
+        .replaceAll(/^\[\.{3}(.*)\]$/g, ':$1(.*)*') // Convert "[...id]" into ":id(.*)*"
+        .replaceAll(/\[(.*)\]/g, ':$1'); // Convert "[id]" into ":id"
     });
 
   if (parts.at(-1) === 'index') {
