@@ -18,7 +18,9 @@ async function action(options: Record<string, any>): Promise<void> {
   server.listen(
     options.port,
     (err, address) => {
-      console.log(`Akta server is running at ${ address }`);
+      err
+        ? console.error(err)
+        : console.log(`Akta server is running at ${ address }`);
     }
   );
 }

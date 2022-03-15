@@ -19,4 +19,6 @@ async function action(options: Record<string, any>): Promise<void> {
     root,
     optionsPath: options.config
   });
+
+  console.log('Build complete');
 }
