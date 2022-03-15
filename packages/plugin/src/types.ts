@@ -11,7 +11,6 @@ export interface PagesPluginParameters {
 }
 
 export interface PagesPluginRoute {
-  name: string;
   rawPath: string;
   path: string;
   component: Function;

@@ -3,6 +3,12 @@
   "version": "0.0.1",
   "license": "MIT",
   "main": "./dist/index.js",
+  "exports": {
+    ".": "./dist/index.js",
+    "./client": {
+      "types": "./client.d.ts"
+    }
+  },
   "homepage": "https://github.com/aktajs/akta#readme",
   "repository": {
     "type": "git",
@@ -13,7 +19,8 @@
     "url": "https://github.com/aktajs/akta/issues"
   },
   "files": [
-    "dist/**"
+    "dist",
+    "client.d.ts"
   ],
   "publishConfig": {
     "access": "public"

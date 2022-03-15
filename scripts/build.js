@@ -26,7 +26,7 @@ build({
   watch: process.argv.includes('--watch'),
   logLevel: 'warning',
   external: [
-    'virtual:local-routes',
+    'virtual:routes',
     ...Object.keys((pkg.dependencies || {})),
   ]
 });

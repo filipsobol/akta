@@ -2,7 +2,7 @@ import { ref } from 'vue';
 import { extname } from 'path';
 import { renderHeadToString } from '@vueuse/head';
 import { renderToString, SSRContext } from '@vue/server-renderer';
-import { AddPreloadLinksParameters, RenderParameters } from './types';
+import { AddPreloadLinksParameters, RenderParameters } from '../types';
 
 export async function render({ url, context, manifest }: RenderParameters) {
   // set the router to the desired URL before rendering

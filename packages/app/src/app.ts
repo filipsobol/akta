@@ -1,26 +1,35 @@
+import rawRoutes from 'virtual:routes';
 import { createSSRApp, ref } from 'vue';
-import { createHead, HeadObject } from '@vueuse/head';
+import { createHead } from '@vueuse/head';
 import { createRouter } from './router';
-import { Configuration, AktaContext, AktaContextFactory } from './types';
+import type { HeadObject } from '@vueuse/head';
+import type { Configuration, AktaContext, AktaContextFactory } from './types';
 
 export function createAktaApp(configuration: Configuration): AktaContextFactory {
   const isClient = typeof window !== 'undefined';
 
   const {
     App,
+    router: routerConfig,
     head: headConfig
   } = configuration;
 
   function createApp(): AktaContext {
     const app = createSSRApp(App);
-    const router = createRouter(isClient);
+    const router = createRouter({
+      rawRoutes,
+      isClient,
+      routerConfig
+    });
     const head = createHead();
 
     app
       .use(router)
       .use(head);
 
-    head.addHeadObjs(ref<HeadObject>(headConfig));
+    if (headConfig) {
+      head.addHeadObjs(ref<HeadObject>(headConfig));
+    }
 
     return {
       app,
@@ -33,12 +42,13 @@ export function createAktaApp(configuration: Configuration): AktaContextFactory 
   if (isClient) {
     const { app, router } = createApp();
   
-    // wait until router is ready before mounting to ensure hydration match
+    // Wait until router is ready before mounting to ensure hydration match
     router.isReady().then(() => app.mount('#app', true));
   }
 
   return {
     configuration,
     createApp,
+    rawRoutes,
   };
 };

@@ -1,10 +1,16 @@
-import { Router } from 'vue-router';
-import { App, Component } from 'vue';
-import { HeadClient, HeadObject } from '@vueuse/head';
+import type { App, Component } from 'vue';
+import type { PagesPluginRoute } from '@akta/plugin';
+import type { HeadClient, HeadObject } from '@vueuse/head';
+import type { Router, RouterScrollBehavior } from 'vue-router';
 
 export interface Configuration {
   App: Component;
-  head: HeadObject;
+  head?: HeadObject;
+  router?: RouterConfiguration;
+}
+
+export interface RouterConfiguration {
+  scrollBehavior?: RouterScrollBehavior;
 }
 
 export interface AktaContext {
@@ -15,6 +21,7 @@ export interface AktaContext {
 }
 
 export interface AktaContextFactory {
+  rawRoutes: PagesPluginRoute;
   configuration: Configuration;
   createApp: () => AktaContext;
 }

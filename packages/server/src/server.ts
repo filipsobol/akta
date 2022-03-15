@@ -4,7 +4,7 @@ import middie from 'middie';
 import fastifyStatic from 'fastify-static';
 import fastify, { FastifyInstance } from 'fastify';
 import { createServer as createVite, ViteDevServer } from 'vite';
-import { renderRoute } from './renderRoute';
+import { renderRoute } from './render/renderRoute';
 import { loadDevelopmentApplication, loadProductionApplication } from './loadApplication';
 
 /**

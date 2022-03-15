@@ -2,7 +2,8 @@ import { extname } from 'path';
 import glob from 'fast-glob';
 import { PagesPluginParameters } from './types';
 
-const VIRTUAL_NAME = 'virtual:local-routes';
+const VIRTUAL_MODULE_ID = 'virtual:routes';
+const RESOLVED_VIRTUAL_MODULE_ID = '\0' + VIRTUAL_MODULE_ID;
 
 const EXCLUDE = [
   'node_modules',
@@ -10,20 +11,17 @@ const EXCLUDE = [
 ];
 
 export function pagesPlugin(options: PagesPluginParameters) {
-  function isVirtualFile(id: string) {
-    return id === VIRTUAL_NAME;
-  }
 
   return {
     name: 'akta-plugin-pages',
     enforce: 'pre',
     async resolveId(id: string): Promise<string | void> {
-      if (isVirtualFile(id)) {
-        return id;
+      if (id === VIRTUAL_MODULE_ID) {
+        return RESOLVED_VIRTUAL_MODULE_ID;
       }
     },
     async load(id: string) {
-      if (!isVirtualFile(id)) {
+      if (id !== RESOLVED_VIRTUAL_MODULE_ID) {
         return;
       }
 
