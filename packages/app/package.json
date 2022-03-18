@@ -24,7 +24,7 @@
     "watch": "node ../../scripts/build --watch",
     "build": "node ../../scripts/build",
     "test": "",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "pnpm build"
   },
   "dependencies": {
     "@vueuse/head": "^0.7.5",

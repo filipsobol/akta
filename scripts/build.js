@@ -1,5 +1,6 @@
 const { resolve, extname } = require('path');
 const rimraf = require('rimraf');
+const { default: RawPlugin } = require('esbuild-plugin-raw');
 const { build } = require('esbuild');
 
 function cwdResolve(name) {
@@ -28,5 +29,8 @@ build({
   external: [
     'virtual:routes',
     ...Object.keys((pkg.dependencies || {})),
+  ],
+  plugins: [
+    RawPlugin()
   ]
 });

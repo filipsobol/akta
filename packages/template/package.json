@@ -13,8 +13,13 @@
     "test": ""
   },
   "dependencies": {
-    "@akta/app": "^0.0.1",
-    "@akta/cli": "^0.0.1",
-    "@akta/plugin": "^0.0.1"
+    "@akta/app": "workspace:^",
+    "@akta/cli": "workspace:^",
+    "@akta/components": "workspace:^",
+    "@akta/plugin": "workspace:^",
+    "@vueuse/head": "^0.7.5",
+    "vite": "^2.8.6",
+    "vue": "^3.2.31",
+    "vue-router": "^4.0.14"
   }
 }

@@ -87,6 +87,7 @@
   "references": [
     { "path": "packages/app" },
     { "path": "packages/cli" },
+    { "path": "packages/components" },
     { "path": "packages/plugin" },
     { "path": "packages/server" },
   ]

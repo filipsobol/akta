@@ -1,9 +1,9 @@
 import { defineConfig } from 'vite';
-import Akta from '@akta/plugin';
+import { AktaPlugin } from '@akta/plugin';
 
 export default defineConfig({
   plugins: [
-    Akta()
+    AktaPlugin()
   ],
   optimizeDeps: {
     include: [

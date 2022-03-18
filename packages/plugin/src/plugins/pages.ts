@@ -1,6 +1,7 @@
 import { extname } from 'path';
 import glob from 'fast-glob';
-import { PagesPluginParameters } from './types';
+import type { Plugin } from 'vite';
+import type { PagesPluginParameters } from '../types';
 
 const VIRTUAL_MODULE_ID = 'virtual:routes';
 const RESOLVED_VIRTUAL_MODULE_ID = '\0' + VIRTUAL_MODULE_ID;
@@ -10,16 +11,20 @@ const EXCLUDE = [
   '.git'
 ];
 
-export function pagesPlugin(options: PagesPluginParameters) {
-
+export function PagesPlugin(options: PagesPluginParameters): Plugin {
   return {
     name: 'akta-plugin-pages',
+
     enforce: 'pre',
-    async resolveId(id: string): Promise<string | void> {
+
+    resolveId(id: string) {
       if (id === VIRTUAL_MODULE_ID) {
         return RESOLVED_VIRTUAL_MODULE_ID;
       }
+
+      return;
     },
+
     async load(id: string) {
       if (id !== RESOLVED_VIRTUAL_MODULE_ID) {
         return;

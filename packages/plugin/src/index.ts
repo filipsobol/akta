@@ -7,10 +7,11 @@ import MarkdownEmoji from 'markdown-it-emoji';
 import MarkdownPrism from 'markdown-it-prism';
 import MarkdownAnchor from 'markdown-it-anchor';
 import MarkdownToc from 'markdown-it-toc-done-right';
-import { pagesPlugin } from './loadLocalPages';
+import { PagesPlugin } from './plugins/pages';
+import { PingPlugin } from './plugins/ping';
 import { MarkdownLinksToVueRouterLinks } from './transformMarkdownLinks';
 
-export default function framework() {
+export function AktaPlugin() {
   return [
     Vue({
       include: [
@@ -19,7 +20,7 @@ export default function framework() {
       ]
     }),
 
-    pagesPlugin({
+    PagesPlugin({
       paths: [
         'pages'
       ],
@@ -31,6 +32,8 @@ export default function framework() {
       onRoutesGenerated: () => {},
       onCodeGenerated: () => {}
     }),
+
+    PingPlugin(),
 
     RegisterComponents({
       deep: true,

@@ -8,7 +8,7 @@ import type { PagesPluginRoute } from '@akta/plugin';
 import type { RouterConfiguration } from './types';
 
 interface CreateRouterParameters {
-  rawRoutes: PagesPluginRoute;
+  rawRoutes: PagesPluginRoute[];
   isClient: boolean;
   routerConfig?: RouterConfiguration;
 }

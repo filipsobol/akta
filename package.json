@@ -16,23 +16,28 @@
     "./packages/*"
   ],
   "engines": {
-    "node": ">=16.0.0",
-    "npm": ">=8.0.0"
+    "node": ">=16",
+    "pnpm": ">=6"
   },
   "scripts": {
-    "dev": "cd packages/template && npm run dev",
-    "start": "cd packages/template && npm run start",
-    "build": "npm run build --workspaces",
-    "build:all": "npm run build:clear && npm run build && npm run build:types",
+    "dev": "cd packages/template && pnpm dev",
+    "start": "cd packages/template && pnpm start",
+    "build": "pnpm -r build",
+    "build:all": "pnpm build:clear && pnpm build && pnpm build:types",
     "build:types": "tsc --build",
     "build:clear": "rimraf packages/**/dist packages/**/tsconfig.tsbuildinfo",
-    "test": "npm run test --workspaces",
-    "publish": "npm run build:all && npm run test && npm publish --workspaces"
+    "test": "pnpm -r test",
+    "publish": "pnpm build:all && pnpm test && pnpm -r publish"
   },
   "dependencies": {
     "@types/node": "^17.0.21",
     "esbuild": "^0.14.25",
+    "esbuild-plugin-raw": "^0.1.5",
     "rimraf": "^3.0.2",
     "typescript": "^4.6.2"
+  },
+  "devDependencies": {
+    "@akta/plugin": "workspace:*",
+    "vite": "^2.8.6"
   }
 }

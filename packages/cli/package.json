@@ -26,10 +26,10 @@
     "watch": "node ../../scripts/build --watch",
     "build": "node ../../scripts/build",
     "test": "",
-    "prepare": "npm run build"
+    "prepare": "pnpm build"
   },
   "dependencies": {
-    "@akta/server": "^0.0.1",
+    "@akta/server": "workspace:^",
     "commander": "^9.0.0"
   }
 }
