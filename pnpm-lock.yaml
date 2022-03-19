@@ -45,9 +45,10 @@ importers:
       vite: ^2.8.6
       vue: ^3.2.31
     dependencies:
+      vue: 3.2.31
+    devDependencies:
       '@vitejs/plugin-vue': 2.2.4_vite@2.8.6+vue@3.2.31
       vite: 2.8.6
-      vue: 3.2.31
 
   packages/plugin:
     specifiers:
@@ -285,7 +286,6 @@ packages:
     dependencies:
       vite: 2.8.6
       vue: 3.2.31
-    dev: false
 
   /@vue/compiler-core/3.2.31:
     resolution: {integrity: sha512-aKno00qoA4o+V/kR6i/pE+aP+esng5siNAVQ422TkBNM6qA4veXiZbSe8OTXHXquEi/f6Akc+nLfB4JGfe4/WQ==}
@@ -1210,7 +1210,6 @@ packages:
 
   /path-to-regexp/6.2.0:
     resolution: {integrity: sha512-f66KywYG6+43afgE/8j/GoiNyygk/bnoCbps++3ErRKsIYkGGupyv07R2Ok5m9i67Iqc+T2g1eAUGUPzWhYTyg==}
-    dev: false
 
   /picocolors/1.0.0:
     resolution: {integrity: sha512-1fygroTLlHu66zi26VoTDv8yRgm0Fccecssto+MhsZ0D/DGW2sm8E8AjW7NU5VVTRt5GxbeZ5qBuJr+HyLYkjQ==}
