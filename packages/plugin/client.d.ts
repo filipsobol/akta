@@ -5,8 +5,8 @@ declare module '*.vue' {
 }
 
 declare module 'virtual:routes' {
-  import { RoutingPluginRoute } from '@akta/plugin';
-  const routes: PagesPluginRoute[];
+  import { RouteRecordRaw } from 'vue-router';
+  const routes: RouteRecordRaw[];
   export default routes;
 }
 

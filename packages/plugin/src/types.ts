@@ -9,9 +9,3 @@ export interface RoutingPluginParameters {
   onRoutesGenerated?: (routes: RouteRecordRaw[]) => MaybePromise<RouteRecordRaw[] | void>;
   onCodeGenerated?: (code: string) => MaybePromise<string | void>;
 }
-
-export interface RoutingPluginRoute {
-  rawPath: string;
-  path: string;
-  component: Function;
-}
