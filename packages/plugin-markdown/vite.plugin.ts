@@ -9,17 +9,15 @@ export default defineConfig({
     Vue()
   ],
   build: {
+    ssr: true,
+    emptyOutDir: false,
     lib: {
-      entry: resolve(__dirname, 'src/index.ts'),
-      formats: ['es'],
-      fileName: () => 'index.mjs',
+      entry: resolve(__dirname, './src/plugin.ts'),
+      formats: ['cjs'],
+      fileName: () => `plugin.js`
     },
     rollupOptions: {
-      external: [
-        'virtual:routes',
-        'virtual:notifier',
-        ...Object.keys(pkg.dependencies)
-      ]
+      external: Object.keys(pkg.dependencies)
     }
   }
 });

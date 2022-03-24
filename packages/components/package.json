@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/aktajs/akta.git",
-    "directory": "packages/app"
+    "directory": "packages/components"
   },
   "bugs": {
     "url": "https://github.com/aktajs/akta/issues"

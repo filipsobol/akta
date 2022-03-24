@@ -1,23 +1,12 @@
 <template>
-  <Layout>
-    <div class="inter">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link> |
-      <router-link to="/test">Test</router-link>
-      
-      <router-view v-slot="{ Component }">
-        <component :is="Component" />
-      </router-view>
-    </div>
-  </Layout>
+  <div class="inter">
+    <router-link to="/">Home</router-link> |
+    <router-link to="/about">Catch-all</router-link> |
+    <router-link to="/product-123">Product</router-link> |
+    <router-link to="/settings">Settings</router-link> |
+    <router-link to="/settings/profile">Profile</router-link> |
+    <router-link to="/about/us">About us</router-link>
+    
+    <router-view />
+  </div>
 </template>
-
-<script lang="ts">
-import { Layout } from '@akta/components';
-
-export default {
-  components: {
-    Layout
-  }
-}
-</script>

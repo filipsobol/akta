@@ -1,5 +1,5 @@
+import PingTemplate from './notifier.ts?raw';
 import type { Plugin } from 'vite';
-import PingTemplate from './notifier-ping.ts?raw';
 
 const VIRTUAL_MODULE_ID = '/virtual:ping';
 

@@ -1,4 +1,3 @@
-import rawRoutes from 'virtual:routes';
 import { createSSRApp, ref } from 'vue';
 import { createHead } from '@vueuse/head';
 import { createRouter } from './router';
@@ -17,7 +16,6 @@ export function createAktaApp(configuration: Configuration): AktaContextFactory 
   function createApp(): AktaContext {
     const app = createSSRApp(App);
     const router = createRouter({
-      rawRoutes,
       isClient,
       routerConfig
     });
@@ -48,7 +46,6 @@ export function createAktaApp(configuration: Configuration): AktaContextFactory 
 
   return {
     configuration,
-    createApp,
-    rawRoutes,
+    createApp
   };
 };

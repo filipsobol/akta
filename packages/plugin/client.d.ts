@@ -4,15 +4,8 @@ declare module '*.vue' {
   export default Component;
 }
 
-declare module '*.md' {
-  import { ComponentOptions } from 'vue';
-  const Component: ComponentOptions;
-  export default Component;
-}
-
-
 declare module 'virtual:routes' {
-  import { PagesPluginRoute } from '@akta/plugin';
+  import { RoutingPluginRoute } from '@akta/plugin';
   const routes: PagesPluginRoute[];
   export default routes;
 }

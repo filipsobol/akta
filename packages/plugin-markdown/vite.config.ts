@@ -10,16 +10,12 @@ export default defineConfig({
   ],
   build: {
     lib: {
-      entry: resolve(__dirname, 'src/index.ts'),
+      entry: resolve(__dirname, './src/index.ts'),
       formats: ['es'],
-      fileName: () => 'index.mjs',
+      fileName: () => `index.mjs`
     },
     rollupOptions: {
-      external: [
-        'virtual:routes',
-        'virtual:notifier',
-        ...Object.keys(pkg.dependencies)
-      ]
+      external: Object.keys(pkg.dependencies)
     }
   }
 });

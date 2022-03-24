@@ -20,9 +20,10 @@
     "pnpm": ">=6"
   },
   "scripts": {
-    "dev": "cd packages/template && pnpm dev",
-    "start": "cd packages/template && pnpm start",
-    "build": "pnpm -r build",
+    "build:template": "cd packages/template && pnpm build",
+    "dev:template": "cd packages/template && pnpm dev",
+    "start:template": "cd packages/template && pnpm start",
+    "build": "pnpm --filter \"@akta/*\" build",
     "build:all": "pnpm build:clear && pnpm build && pnpm build:types",
     "build:types": "tsc --build",
     "build:clear": "rimraf packages/**/dist packages/**/tsconfig.tsbuildinfo",
@@ -31,7 +32,7 @@
   },
   "dependencies": {
     "@types/node": "^17.0.21",
-    "esbuild": "^0.14.25",
+    "esbuild": "^0.14.27",
     "esbuild-plugin-raw": "^0.1.5",
     "rimraf": "^3.0.2",
     "typescript": "^4.6.2"

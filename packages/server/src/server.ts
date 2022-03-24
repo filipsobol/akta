@@ -50,26 +50,6 @@ export async function createSSRServer(root: string): Promise<FastifyInstance> {
 }
 
 /**
- * Sets up a Fastify server with preview settings
- */
-export async function createPreviewServer(root: string): Promise<FastifyInstance> {
-  const server = fastify({
-    logger: {
-      level: 'warn'
-    }
-  });
-
-  await server.register(fastifyStatic, {
-    root: resolve(root, './dist'),
-    extensions: [
-      'html'
-    ]
-  });
-
-  return server;
-}
-
-/**
  * Sets up a Fastify server with development settings, including Vite server
  */
 export async function createDevelopmentServer(

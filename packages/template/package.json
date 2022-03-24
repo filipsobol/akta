@@ -1,5 +1,5 @@
 {
-  "name": "@akta/template",
+  "name": "template",
   "version": "0.0.1",
   "publishConfig": {
     "access": "public"
@@ -7,9 +7,7 @@
   "scripts": {
     "dev": "akta dev",
     "build": "akta build",
-    "prerender": "akta prerender",
     "start": "akta start",
-    "preview": "akta preview",
     "test": ""
   },
   "dependencies": {
