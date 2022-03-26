@@ -2,9 +2,9 @@
   "name": "@akta/plugin",
   "version": "0.0.1",
   "license": "MIT",
-  "main": "./dist/index.js",
+  "main": "./dist/index.mjs",
   "exports": {
-    ".": "./dist/index.js",
+    ".": "./dist/index.mjs",
     "./client": {
       "types": "./client.d.ts"
     }

@@ -1,1 +1,1 @@
-export { default as Layout } from './components/Layout.vue';
+export { default as ALink } from './components/Link.vue';

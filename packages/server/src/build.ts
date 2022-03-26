@@ -28,6 +28,11 @@ async function buildSSR(root: string, optionsPath: string): Promise<void> {
     root,
     build: {
       ssr: resolve(root, optionsPath),
+      rollupOptions: {
+        output: {
+          format: 'esm'
+        }
+      },
       outDir: resolve(root, './.akta'),
       minify: true,
       cssCodeSplit: false

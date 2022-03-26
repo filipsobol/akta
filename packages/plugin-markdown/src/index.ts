@@ -1,60 +1,57 @@
-import slugify from 'slugify';
-import Markdown from 'vite-plugin-md';
-import MarkdownEmoji from 'markdown-it-emoji';
-import MarkdownPrism from 'markdown-it-prism';
-import MarkdownAnchor from 'markdown-it-anchor';
-import MarkdownToc from 'markdown-it-toc-done-right';
-import { MarkdownLinksToVueRouterLinks } from './transformMarkdownLinks';
+import { unified } from 'unified';
+import yaml from 'yaml';
+import Parse from 'remark-parse';
+import Emoji from 'remark-emoji';
+import Rehype from 'remark-rehype';
+import GitHubFlavor from 'remark-gfm';
+import Stringify from 'rehype-stringify';
+import AccessibleEmoji from '@fec/remark-a11y-emoji';
+import Frontmatter from 'remark-frontmatter';
+import ExtractFrontmatter from 'remark-extract-frontmatter';
+import { links } from './plugins/links';
 import type { Plugin } from 'vite';
 
-// Vue({
-//   include: [
-//     /\.md$/
-//   ]
-// }),
-// PagesPlugin({
-//   extensions: [
-//     'md'
-//   ]
-// }),
+async function parseMarkdown(content: string) {
+  const file = await unified()
+    .use(Parse)
+    .use(Frontmatter, { type: 'yaml', marker: '-' })
+    .use(ExtractFrontmatter, { yaml: yaml.parse, name: 'frontmatter' })
+    .use(GitHubFlavor)
+    .use(Emoji)
+    .use(AccessibleEmoji)
+    .use(Rehype, { allowDangerousHtml: true })
+    .use(Stringify, { allowDangerousHtml: true })
+    .use(links)
+    .process(content);
 
-// RegisterComponents({
-//   extensions: [
-//     'vue',
-//   ],
-//   include: [
-//     /\.md$/
-//   ],
-// }),
+  return `
+    <template>
+      ${ String(file) }
+    </template>
+  `;
+}
 
-export function MarkdownPlugin(): Plugin[] {
-  return [
-    Markdown({
-      headEnabled: true,
-      markdownItOptions: {
-        html: true,
-        xhtmlOut: true,
-        breaks: true,
-        linkify: true,
-        typographer: true,
-      },
-      markdownItSetup(md) {
-        md.use(MarkdownAnchor, {
-          level: 1,
-          slugify,
-          permalink: MarkdownAnchor.permalink.headerLink()
-        });
+export function MarkdownPlugin(): Plugin {
+  return {
+    name: 'akta-plugin-markdown',
 
-        md.use(MarkdownToc, {
-          level: 1,
-          slugify,
-          containerClass: 'markdown-toc'
-        });
+    enforce: 'pre',
 
-        md.use(MarkdownEmoji);
-        md.use(MarkdownPrism);
-        md.use(MarkdownLinksToVueRouterLinks);
+    transform(content, filename): Promise<string> | undefined {
+      if (!filename.endsWith('.md')) {
+        return;
       }
-    })
-  ]
+
+      return parseMarkdown(content);
+    },
+
+    async handleHotUpdate(ctx) {
+      if (!ctx.file.endsWith('.md')) {
+        return;
+      }
+
+      const defaultRead = ctx.read;
+      ctx.read = async () => parseMarkdown(await defaultRead());
+    },
+  };
 }

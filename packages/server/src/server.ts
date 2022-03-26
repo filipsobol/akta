@@ -42,6 +42,7 @@ export async function createSSRServer(root: string): Promise<FastifyInstance> {
         .header('Content-Type', 'text/html')
         .send(html);
     } catch(e) {
+      console.log(e);
       // TODO: Show "Something went wrong" page
     }
   });

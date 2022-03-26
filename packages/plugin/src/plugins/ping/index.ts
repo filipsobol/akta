@@ -5,7 +5,7 @@ const VIRTUAL_MODULE_ID = '/virtual:ping';
 
 export function PingPlugin(): Plugin {
   return {
-    name: 'virtual:ping',
+    name: 'akta-plugin-ping',
 
     apply: 'serve',
 

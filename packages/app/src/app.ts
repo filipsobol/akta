@@ -1,4 +1,4 @@
-import { createSSRApp, ref } from 'vue';
+import { createSSRApp, ref, defineAsyncComponent } from 'vue';
 import { createHead } from '@vueuse/head';
 import { createRouter } from './router';
 import type { HeadObject } from '@vueuse/head';
@@ -24,6 +24,8 @@ export function createAktaApp(configuration: Configuration): AktaContextFactory 
     app
       .use(router)
       .use(head);
+    
+    app.component('a-link', defineAsyncComponent(() => import('./components/Link.vue')));
 
     if (headConfig) {
       head.addHeadObjs(ref<HeadObject>(headConfig));

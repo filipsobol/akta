@@ -6,7 +6,8 @@ export function AktaPlugin() {
   return [
     Vue({
       include: [
-        /\.vue$/
+        /\.vue$/,
+        /\.md$/
       ]
     }),
 
@@ -15,7 +16,8 @@ export function AktaPlugin() {
     RoutingPlugin({
       path: 'routes',
       extensions: [
-        'vue'
+        'vue',
+        'md'
       ],
       exclude: []
     }),

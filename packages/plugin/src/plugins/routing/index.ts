@@ -106,7 +106,9 @@ export function RoutingPlugin(options: RoutingPluginParameters): Plugin {
     
         export default routes;
       `;
-    }
+    },
+
+    // TODO: HMR
   };
 }
 
