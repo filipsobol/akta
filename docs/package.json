@@ -13,13 +13,19 @@
     "test": ""
   },
   "dependencies": {
-    "@akta/app": "workspace:^",
-    "@akta/cli": "workspace:^",
-    "@akta/plugin": "workspace:^",
-    "@akta/plugin-markdown": "workspace:^",
+    "@akta/app": "^0.0.2",
+    "@akta/cli": "^0.0.2",
+    "@akta/plugin": "^0.0.2",
+    "@akta/plugin-markdown": "^0.0.2",
     "@vueuse/head": "^0.7.5",
     "vite": "^2.8.6",
     "vue": "^3.2.31",
     "vue-router": "^4.0.14"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.2",
+    "autoprefixer": "^10.4.4",
+    "postcss": "^8.4.12",
+    "tailwindcss": "^3.0.23"
   }
 }
