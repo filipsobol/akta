@@ -39,7 +39,6 @@
     "vue": "^3.2.31"
   },
   "devDependencies": {
-    "@types/connect": "^3.4.35",
-    "@types/express": "^4.17.13"
+    "@types/connect": "^3.4.35"
   }
 }
