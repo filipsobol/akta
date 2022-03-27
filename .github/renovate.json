@@ -1,0 +1,10 @@
+{
+  "extends": [
+    "config:base"
+  ],
+  "labels": ["dependencies"],
+  "baseBranches": ["main"],
+  "enabledManagers": ["pnpm"],
+  "semanticCommits": "enabled",
+  "automerge": false
+}
