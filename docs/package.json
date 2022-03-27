@@ -1,0 +1,24 @@
+{
+  "name": "template",
+  "version": "0.0.1",
+  "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "dev": "akta dev",
+    "build": "akta build",
+    "start": "akta start",
+    "test": ""
+  },
+  "dependencies": {
+    "@akta/app": "workspace:^",
+    "@akta/cli": "workspace:^",
+    "@akta/plugin": "workspace:^",
+    "@akta/plugin-markdown": "workspace:^",
+    "@vueuse/head": "^0.7.5",
+    "vite": "^2.8.6",
+    "vue": "^3.2.31",
+    "vue-router": "^4.0.14"
+  }
+}

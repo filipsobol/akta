@@ -43,19 +43,6 @@ importers:
       '@akta/server': link:../server
       commander: 9.1.0
 
-  packages/components:
-    specifiers:
-      '@vitejs/plugin-vue': ^2.2.4
-      vite: ^2.8.6
-      vue: ^3.2.31
-      vue-router: ^4.0.14
-    dependencies:
-      vue: 3.2.31
-      vue-router: 4.0.14_vue@3.2.31
-    devDependencies:
-      '@vitejs/plugin-vue': 2.2.4_vite@2.8.6+vue@3.2.31
-      vite: 2.8.6
-
   packages/plugin:
     specifiers:
       '@vitejs/plugin-vue': ^2.2.4
@@ -266,6 +253,7 @@ packages:
     dependencies:
       vite: 2.8.6
       vue: 3.2.31
+    dev: false
 
   /@vue/compiler-core/3.2.31:
     resolution: {integrity: sha512-aKno00qoA4o+V/kR6i/pE+aP+esng5siNAVQ422TkBNM6qA4veXiZbSe8OTXHXquEi/f6Akc+nLfB4JGfe4/WQ==}
