@@ -28,7 +28,7 @@ if (import.meta.hot) {
         margin-right: -.25rem;
         right: 15px;
         bottom: 15px;
-        position: absolute;
+        position: fixed;
         display: var(--ping-display);
       ">
         <span style="
