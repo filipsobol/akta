@@ -1,0 +1,9 @@
+{
+  "extends": [
+    "config:base"
+  ],
+  "labels": ["dependencies"],
+  "baseBranches": ["main"],
+  "semanticCommits": "enabled",
+  "automerge": false
+}
