@@ -4,7 +4,6 @@
   ],
   "labels": ["dependencies"],
   "baseBranches": ["main"],
-  "enabledManagers": ["pnpm"],
   "semanticCommits": "enabled",
   "automerge": false
 }
