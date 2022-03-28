@@ -12,7 +12,7 @@ import { loadDevelopmentApplication, loadProductionApplication } from './loadApp
  */
 export async function createSSRServer(root: string): Promise<FastifyInstance> {
   const { createApp } = await loadProductionApplication(root);
-  const outDir = resolve(root, './dist');
+  const outDir = resolve(root, './dist/client');
   const ssrManifestPath = resolve(outDir, 'ssr-manifest.json');
   const manifest = JSON.parse(readFileSync(ssrManifestPath, 'utf-8'));
   const template = readFileSync(resolve(outDir, 'index.html'), 'utf-8');

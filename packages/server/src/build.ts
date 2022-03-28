@@ -11,7 +11,7 @@ async function buildClient(root: string): Promise<void> {
   await viteBuild({
     root,
     build: {
-      outDir: resolve(root, './dist'),
+      outDir: resolve(root, './dist/client'),
       minify: true,
       ssrManifest: true,
       rollupOptions: {
@@ -33,7 +33,7 @@ async function buildSSR(root: string, optionsPath: string): Promise<void> {
           format: 'esm'
         }
       },
-      outDir: resolve(root, './.akta'),
+      outDir: resolve(root, './dist/server'),
       minify: true,
       cssCodeSplit: false
     }
