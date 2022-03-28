@@ -26,7 +26,7 @@ export default createAktaApp({
 
 This object controls the `<head>` tag of your application, such as the `title`, `meta`, `style`, or `script` tags. Whatever you add to it, will apply to all pages.
 
-See the [`@vueuse/head`](https://github.com/vueuse/head#api) library to see the available options.
+See the [`@vueuse/head` library](https://github.com/vueuse/head#api) for a list of available options.
 
 **Example:**
 
