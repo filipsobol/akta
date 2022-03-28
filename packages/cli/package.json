@@ -29,7 +29,7 @@
     "prepare": "pnpm build"
   },
   "dependencies": {
-    "@akta/server": "workspace:^",
-    "commander": "^9.0.0"
+    "@akta/server": "workspace:^0.0.2",
+    "commander": "^9.1.0"
   }
 }

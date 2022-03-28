@@ -13,10 +13,10 @@
     "test": ""
   },
   "dependencies": {
-    "@akta/app": "^0.0.2",
-    "@akta/cli": "^0.0.2",
-    "@akta/plugin": "^0.0.2",
-    "@akta/plugin-markdown": "^0.0.2",
+    "@akta/app": "workspace:^0.0.2",
+    "@akta/cli": "workspace:^0.0.2",
+    "@akta/plugin": "workspace:^0.0.2",
+    "@akta/plugin-markdown": "workspace:^0.0.2",
     "@vueuse/head": "^0.7.5",
     "vite": "^2.8.6",
     "vue": "^3.2.31",

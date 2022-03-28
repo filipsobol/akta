@@ -27,11 +27,11 @@
     "prepublishOnly": "pnpm build"
   },
   "dependencies": {
-    "@akta/app": "workspace:^",
+    "@akta/app": "workspace:^0.0.2",
     "@vue/server-renderer": "^3.2.31",
     "@vueuse/head": "^0.7.5",
     "fastify": "^3.27.4",
-    "fastify-static": "^4.5.0",
+    "fastify-static": "^4.6.1",
     "joi": "^17.6.0",
     "lodash.merge": "^4.6.2",
     "middie": "^6.0.0",
