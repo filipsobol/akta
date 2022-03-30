@@ -33,11 +33,11 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@vitejs/plugin-vue": "^2.2.4",
+    "@vitejs/plugin-vue": "^2.3.0",
     "fast-glob": "^3.2.11",
     "lodash.update": "^4.10.2",
     "slugify": "^1.6.5",
-    "vite": "^2.8.6",
+    "vite": "^2.9.0",
     "vue": "^3.2.31",
     "vue-router": "^4.0.14"
   }

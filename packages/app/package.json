@@ -27,9 +27,9 @@
     "prepublishOnly": "pnpm build"
   },
   "dependencies": {
-    "@vitejs/plugin-vue": "^2.2.4",
+    "@vitejs/plugin-vue": "^2.3.0",
     "@vueuse/head": "^0.7.5",
-    "vite": "^2.8.6",
+    "vite": "^2.9.0",
     "vue": "^3.2.31",
     "vue-router": "^4.0.14"
   }
