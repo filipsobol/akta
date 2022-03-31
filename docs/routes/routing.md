@@ -1,12 +1,30 @@
 # Routing
 
+```ts twoslash title="test" { 1-3 }
+interface IdLabel {id: number, /* some fields */ }
+interface NameLabel {name: string, /* other fields */ }
+type NameOrId<T extends number | string> = T extends number ? IdLabel : NameLabel;
+// This comment should not be included
+
+// ---cut---
+function createLabel<T extends number | string>(idOrName: T): NameOrId<T> {
+  throw "unimplemented"
+}
+
+let variable = createLabel("typescript");
+//  ^?
+
+// @errors: 2339
+variable.includes('123');
+```
+
 // TODO: Note about SSR and client navigation
 
 Akta automatically generates routes based on the content of the `routes` folder. Every file inside of it creates a route, which paths are based on the relative path to that folder and the filename.
 
 Let's create `home.vue` and `company/about_us.vue` components inside the `routes` folder as shown in the example below.
 
-```text
+```text title="test"
 routes/
 ├─ company/
 │  ├─ about_us.vue
@@ -44,9 +62,7 @@ If only a single segment is variable, use can use square brackets with the name 
 
 The `blog/[slug].vue` file will be served for requests such as `/blog/hello` and `/blog/world`. The variable part of the URL will be passed as a prop to the component, matching the name you provided between the square brackets.
 
-```vue
-// blog/[slug].vue
-
+```vue title="blog/[slug].vue"
 <template>
   <p>Slug: {{ slug }}</p> // FIX THIS IN MARKDOWN!!!!!
 </template>
@@ -68,8 +84,9 @@ The `blog/[year]/[id]-[slug].vue` will match `/blog/2022/1337-performance-tips`,
 
 Again, all three values will be available as props
 
-```vue
-// blog/[year]/[id]-[slug].vue.vue
+{{ test }}
+
+```vue title="blog/[year]/[id]-[slug].vue"
 
 <template>
   <div>
