@@ -8,30 +8,12 @@ import Stringify from 'rehype-stringify';
 import AccessibleEmoji from '@fec/remark-a11y-emoji';
 import Frontmatter from 'remark-frontmatter';
 import ExtractFrontmatter from 'remark-extract-frontmatter';
-import { links } from './plugins/links';
 import type { Plugin } from 'vite';
+import type { PluggableList } from 'unified';
+import { links } from './plugins/links';
+import type { MarkdownPluginOptions } from './types';
 
-async function parseMarkdown(content: string) {
-  const file = await unified()
-    .use(Parse)
-    .use(Frontmatter, { type: 'yaml', marker: '-' })
-    .use(ExtractFrontmatter, { yaml: yaml.parse, name: 'frontmatter' })
-    .use(GitHubFlavor)
-    .use(Emoji)
-    .use(AccessibleEmoji)
-    .use(Rehype, { allowDangerousHtml: true })
-    .use(Stringify, { allowDangerousHtml: true })
-    .use(links)
-    .process(content);
-
-  return `
-    <template>
-      ${ String(file) }
-    </template>
-  `;
-}
-
-export function MarkdownPlugin(): Plugin {
+export function MarkdownPlugin(options?: MarkdownPluginOptions): Plugin {
   return {
     name: 'akta-plugin-markdown',
 
@@ -42,7 +24,7 @@ export function MarkdownPlugin(): Plugin {
         return;
       }
 
-      return parseMarkdown(content);
+      return parseMarkdown(content, options);
     },
 
     async handleHotUpdate(ctx) {
@@ -51,7 +33,45 @@ export function MarkdownPlugin(): Plugin {
       }
 
       const defaultRead = ctx.read;
-      ctx.read = async () => parseMarkdown(await defaultRead());
+      ctx.read = async () => parseMarkdown(await defaultRead(), options);
     },
   };
+}
+
+async function parseMarkdown(content: string, options?: MarkdownPluginOptions) {
+  const processor = unified();
+  const plugins: PluggableList = [
+    // Remark plugins
+    Parse,
+    [Frontmatter, { type: 'yaml', marker: '-' }],
+    [ExtractFrontmatter, { yaml: yaml.parse, name: 'frontmatter' }],
+    GitHubFlavor,
+    Emoji,
+    AccessibleEmoji,
+
+    // Custom remark plugins
+    ...(options?.remarkPlugins ?? []),
+
+    // Rehype plugins
+    [Rehype, { allowDangerousHtml: true }],
+    [Stringify, { allowDangerousHtml: true }],
+    links,
+
+    // Custom rehype plugins
+    ...(options?.rehypePlugins ?? [])
+  ];
+
+  const file = await processor
+    .use(plugins)
+    .process(content);
+
+  const html = String(file)
+    .replaceAll('{{', '&lcub;&lcub;')
+    .replaceAll('}}', '&rcub;&rcub;');
+  
+  return `
+    <template>
+      <div v-pre>${ html }</div>
+    </template>
+  `;
 }

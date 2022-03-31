@@ -1,8 +1,9 @@
 import { visit } from 'unist-util-visit';
+import type { Plugin } from 'unified';
 
-export function links() {
+export function links(): Plugin {
   return (tree) => {
-    visit(tree, (node, index, parent) => {
+    visit(tree, (node) => {
       if (node.tagName !== 'a') {
         return;
       }
