@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+code {
+	@apply py-0.5;
+	@apply px-2;
+	@apply rounded;
+	@apply bg-slate-100;
+}
+
 pre {
 	@apply relative;
 	@apply rounded;
@@ -13,7 +20,6 @@ pre .code-title {
 	@apply border-gray-600;
 	@apply px-4;
 	@apply py-2;
-	@apply mb-2;
 	@apply text-right;
 	@apply text-sm;
 }
@@ -58,13 +64,13 @@ pre.twoslash data-lsp:hover::before {
 	text-align: left;
 	padding: 5px 8px;
 	border-radius: 2px;
-	font-family: Menlo, Monaco, Consolas, Courier New, monospace;
 	font-size: 14px;
 	white-space: pre-wrap;
 	z-index: 100;
 }
 
 pre .code-container {
+	@apply py-2;
 	overflow: auto;
 }
 
@@ -101,9 +107,8 @@ pre .code-container:hover a {
 
 pre code {
 	@apply inline-block;
+	@apply bg-inherit;
 	font-size: 14px;
-	font-family: Menlo, Monaco, Consolas, Courier New, monospace;
-	;
 	white-space: pre;
 	letter-spacing: 0.4px;
 	-webkit-overflow-scrolling: touch;
@@ -132,16 +137,15 @@ behind the actual error message. This sections keeps both of those two in in syn
 */
 
 pre .error-behind {
-	display: none;
+	@apply hidden;
 }
 
 pre .error {
+	@apply block;
+	@apply w-full;
 	@apply my-2;
-	padding: 6px;
-	padding-left: 14px;
-	width: calc(100% - 20px);
-	white-space: pre-wrap;
-	display: block;
+	@apply p-2;
+	@apply whitespace-pre-wrap;
 }
 
 pre .error {
@@ -155,23 +159,20 @@ pre .error .code {
 
 /* Queries */
 pre .arrow {
+	@apply absolute;
+	@apply h-2;
+	@apply w-2;
+	@apply left-4;
+	@apply top-[-4px];
+	@apply rotate-45;
 	@apply bg-gray-300;
-	position: relative;
-	top: -8px;
-	margin-left: 0.1rem;
-	/* Edges */
-	border-left: 1px solid #eee;
-	border-top: 1px solid #eee;
-	transform: translateY(25%) rotate(45deg);
-	/* Size */
-	height: 8px;
-	width: 8px;
 }
 
 pre .popover {
+	@apply relative;
 	@apply inline-block;
 	@apply px-4;
-	@apply py-0.5;
+	@apply py-1;
 	@apply my-3;
 	@apply bg-gray-300;
 	@apply text-gray-900;
@@ -186,7 +187,6 @@ pre .inline-completions ul.dropdown {
 	background-color: gainsboro;
 	color: grey;
 	padding-top: 4px;
-	font-family: var(--code-font);
 	font-size: 0.8rem;
 	margin: 0;
 	padding: 0;
@@ -250,7 +250,6 @@ data-lsp {
 
 .tag-container .twoslash-annotation {
 	position: absolute;
-	font-family: "JetBrains Mono", Menlo, Monaco, Consolas, Courier New, monospace;
 	right: -10px;
 	/* Default annotation text to 200px */
 	width: 200px;
