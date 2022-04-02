@@ -87,7 +87,6 @@ Again, all three values will be available as props
 {{ test }}
 
 ```vue title="blog/[year]/[id]-[slug].vue"
-
 <template>
   <div>
     <p>Year: {{ year }}</p> // FIX THIS IN MARKDOWN!!!!!

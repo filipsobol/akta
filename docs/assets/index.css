@@ -37,14 +37,14 @@ pre code {
 
 /* ---------- TITLE ---------- */
 pre .code-title {
-	@apply border-b;
-	@apply border-gray-200;
+	@apply bg-slate-200;
 	@apply px-4;
 	@apply py-2;
-	@apply text-right;
+	@apply text-center;
 	@apply text-sm;
 }
 
+/* ---------- HIGHLIGHTING ---------- */
 pre.shiki:hover .dim {
 	@apply opacity-100;
 }
@@ -58,40 +58,42 @@ pre.shiki div.highlight {
 	@apply opacity-100;
 }
 
+/* ---------- LINE STYLE ---------- */
 pre.shiki div.line {
-	@apply px-4;
+	@apply px-6;
 	@apply w-full;
-	min-height: 1rem;
+	@apply min-h-[1rem];
 }
 
-/* Don't show the language identifiers */
+/* ---------- LANGUAGE ID ---------- */
 pre.shiki .language-id {
 	display: none;
 }
 
 /* When you mouse over the pre, show the underlines */
 pre.twoslash data-lsp {
-	border-color: white;
+	@apply border-black;
 }
 
 /* The tooltip-like which provides the LSP response */
 pre.twoslash data-lsp:hover::before {
 	content: attr(lsp);
-	position: absolute;
-	transform: translate(0, 1rem);
 
-	background-color: #3f3f3f;
-	color: #fff;
-	text-align: left;
-	padding: 5px 8px;
-	border-radius: 2px;
-	font-size: 14px;
-	white-space: pre-wrap;
-	z-index: 100;
+	@apply translate-y-6;
+	@apply absolute;
+	@apply bg-slate-600;
+	@apply text-slate-200;
+	@apply text-left;
+	@apply text-sm;
+	@apply rounded;
+	@apply py-1;
+	@apply px-2;
+	@apply whitespace-pre-wrap;
+	@apply z-50;
 }
 
 pre .code-container {
-	@apply py-2;
+	@apply py-4;
 	overflow: auto;
 }
 
@@ -162,17 +164,15 @@ pre .error-behind {
 }
 
 pre .error {
-	@apply block;
-	@apply w-full;
-	@apply my-2;
-	@apply py-2;
-	@apply px-4;
-	@apply whitespace-pre-wrap;
-}
-
-pre .error {
+	@apply inline-block;
+	@apply my-3;
+	@apply ml-6;
+	@apply p-2;
+	@apply rounded;
 	@apply bg-red-200;
 	@apply text-red-900;
+	@apply shadow;
+	@apply whitespace-pre-wrap;
 }
 
 pre .error .code {
@@ -187,7 +187,7 @@ pre .arrow {
 	@apply left-3;
 	@apply top-[-4px];
 	@apply rotate-45;
-	@apply bg-slate-500;
+	@apply bg-orange-200;
 }
 
 pre .popover {
@@ -196,9 +196,10 @@ pre .popover {
 	@apply px-4;
 	@apply py-1;
 	@apply my-3;
-	@apply bg-slate-500;
-	@apply text-slate-100;
+	@apply bg-orange-200;
+	@apply text-orange-900;
 	@apply rounded;
+	@apply shadow;
 }
 
 /* Completion */

@@ -14,7 +14,7 @@ The `<router-view />` component inside of it displays the content of the current
 
 **Example:**
 
-```typescript
+```typescript title="akta.config.ts"
 import App from './App.vue';
 
 export default createAktaApp({
@@ -30,7 +30,7 @@ See the [`@vueuse/head` library](https://github.com/vueuse/head#api) for a list 
 
 **Example:**
 
-```typescript
+```typescript title="akta.config.ts"
 export default createAktaApp({
   head: {
     title: 'Akta - performant Vue framework'
@@ -47,18 +47,15 @@ This object allows you to control the [`vue-router` options](https://router.vuej
 
 **Example:**
 
-```typescript
+```typescript title="akta.config.ts"
 export default createAktaApp({
   router: {
     linkActiveClass: 'custom-active-link-class',
 
     scrollBehavior(to, from, savedPosition) {
-      /**
-       * On page navigation, scroll to `savedPosition`
-       * or to the very top of the page
-       */
+      // On page navigation, scroll to `savedPosition` or to the top of the page
       return savedPosition || { top: 0 };
-    },
+    }
   }
 });
 ```
