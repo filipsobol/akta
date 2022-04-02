@@ -6,29 +6,29 @@
 	--shiki-color-text: theme('colors.slate.600');
 	--shiki-color-background: theme('colors.slate.100');
 	--shiki-token-constant: theme('colors.slate.600');
-	--shiki-token-string: red; /* Not sure */
+	--shiki-token-string: red; /* TODO */
 	--shiki-token-comment: theme('colors.slate.400');
 	--shiki-token-keyword: theme('colors.fuchsia.600');
 	--shiki-token-parameter: red; /* Not sure */
 	--shiki-token-function: theme('colors.blue.600');
 	--shiki-token-string-expression: theme('colors.green.600');
 	--shiki-token-punctuation: theme('colors.slate.600');
-	--shiki-token-link: red; /* Not sure */
+	--shiki-token-link: red; /* TODO */
 }
 
-/* mini <code> blocks not inside formatted by Shiki */
+/* ---------- INLINE CODE BLOCK ---------- */
 :not(.code-container) > code {
 	@apply py-0.5;
 	@apply px-2;
-	@apply rounded;
+	@apply rounded-lg;
 	@apply bg-slate-100;
 }
 
-/* Shiki code blocks */
+/* ---------- CODE BLOCK ---------- */
 pre {
 	@apply mx-[-8px];
 	@apply md:mx-0;
-	@apply md:rounded;
+	@apply md:rounded-lg;
 }
 
 pre code {
