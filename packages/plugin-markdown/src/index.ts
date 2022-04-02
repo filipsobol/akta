@@ -69,9 +69,5 @@ async function parseMarkdown(content: string, options?: MarkdownPluginOptions) {
     .replaceAll('{{', '&lcub;&lcub;')
     .replaceAll('}}', '&rcub;&rcub;');
   
-  return `
-    <template>
-      <div v-pre>${ html }</div>
-    </template>
-  `;
+  return `<template>${ html }</template>`;
 }
