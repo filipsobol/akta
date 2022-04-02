@@ -20,7 +20,7 @@
 :not(.code-container) > code {
 	@apply py-0.5;
 	@apply px-2;
-	@apply rounded-lg;
+	@apply rounded;
 	@apply bg-slate-100;
 }
 
@@ -28,7 +28,8 @@
 pre {
 	@apply mx-[-8px];
 	@apply md:mx-0;
-	@apply md:rounded-lg;
+	@apply md:rounded;
+	@apply overflow-hidden;
 }
 
 pre code {

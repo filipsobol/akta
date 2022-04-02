@@ -1,30 +1,14 @@
 # Routing
 
-```ts twoslash title="test" { 2-4 }
-interface IdLabel {id: number, /* some fields */ }
-interface NameLabel {name: string, /* other fields */ }
-type NameOrId<T extends number | string> = T extends number ? IdLabel : NameLabel;
-// This comment should not be included
-
-// ---cut---
-// This is a comment
-function createLabel<T extends number | string>(idOrName: T): NameOrId<T> {
-  throw "unimplemented"
-}
-
-let variable = createLabel("typescript");
-//  ^?
-// @errors: 2339
-variable.includes('123');
-```
+Akta automatically generates routes based on the content of the `routes` folder. Every file inside of it creates a route, which paths are based on the relative path to that folder and the filename.
 
 // TODO: Note about SSR and client navigation
 
-Akta automatically generates routes based on the content of the `routes` folder. Every file inside of it creates a route, which paths are based on the relative path to that folder and the filename.
+## Basic example
 
-Let's create `home.vue` and `company/about_us.vue` components inside the `routes` folder as shown in the example below.
+Let's create `home.vue` and `company/about_us.vue` components inside the `routes` folder like in the example below.
 
-```text title="test"
+```text
 routes/
 ├─ company/
 │  ├─ about_us.vue
@@ -33,7 +17,7 @@ routes/
 
 When you start the app, the `home.vue` component becomes a `/home` route. Because the `about_us.vue` component is inside the `company` folder, it becomes a `/company/about_us` route.
 
-However, there are a few exceptions, where filenames don't directly correspond to route paths.
+However, there are a few exceptions described below, where filenames don't directly correspond to route paths.
 
 ## `index` files
 
@@ -41,7 +25,7 @@ If you've been doing web development for some time, you already know that the `i
 
 The simplest way to think about this is that `index` is essentially removed from the route path.
 
-Let's create `index.vue` and `company/index.vue` components inside the `routes` folder as shown in the example below.
+Let's create `index.vue` and `company/index.vue` components inside the `routes` folder like in the example below.
 
 ```text
 routes/
@@ -54,9 +38,9 @@ The `index.vue` becomes a `/` route and becomes the home page of your applicatio
 
 ## Dynamic routes
 
-Dynamic routes allow you to handle requests with variable paths.
+Dynamic routes allow you to handle requests where parts of the path are variable.
 
-### Single segment
+### Variable segments
 
 If only a single segment is variable, use can use square brackets with the name of that segment inside of it.
 
@@ -64,7 +48,7 @@ The `blog/[slug].vue` file will be served for requests such as `/blog/hello` and
 
 ```vue title="blog/[slug].vue"
 <template>
-  <p>Slug: {{ slug }}</p> // FIX THIS IN MARKDOWN!!!!!
+  <p>Slug: {{ slug }}</p>
 </template>
 
 <script>
@@ -84,14 +68,12 @@ The `blog/[year]/[id]-[slug].vue` will match `/blog/2022/1337-performance-tips`,
 
 Again, all three values will be available as props
 
-{{ test }}
-
 ```vue title="blog/[year]/[id]-[slug].vue"
 <template>
   <div>
-    <p>Year: {{ year }}</p> // FIX THIS IN MARKDOWN!!!!!
-    <p>ID: {{ id }}</p> // FIX THIS IN MARKDOWN!!!!!
-    <p>Slug: {{ slug }}</p> // FIX THIS IN MARKDOWN!!!!!
+    <p>Year: {{ year }}</p>
+    <p>ID: {{ id }}</p>
+    <p>Slug: {{ slug }}</p>
   </div>
 </template>
 
@@ -108,7 +90,37 @@ export default {
 
 ### Catch-all
 
-[...params]
+There are cases when you don't know the structure of the URL, but still want a component to handle it. Most popular example is "catch-all" or 404 page, displayed to the user if the they visited the page that doesn't exist.
+
+Catch-all route — same as routes with variable segments — use the square brackets syntax, but additionally, they include three dots before the name of the parameter.
+
+Let's assume a structure like in the example below.
+
+```text
+routes/
+├─ company/
+│  ├─ index.vue
+├─ [...params].vue
+├─ index.vue
+```
+
+In such case, the `index.vue` component becomes a `/` route, `company/index.vue` becomes a `/company` route, but every other route will be handled by the `[...params].vue` component.
+
+The variable part of the URL will be passed as a prop to the component, matching the name you provided between the square brackets.
+
+```vue title="[...params].vue"
+<template>
+  <p>Params: {{ params }}</p>
+</template>
+
+<script>
+export default {
+  props: ['params']
+};
+</script>
+```
+
+The `params` props is an array of strings, after separating the matching URL by `/`.
 
 ## `__layout` files
 
