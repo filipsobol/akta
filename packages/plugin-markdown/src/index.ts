@@ -1,5 +1,6 @@
 import { unified } from 'unified';
 import yaml from 'yaml';
+import Raw from 'rehype-raw';
 import Parse from 'remark-parse';
 import Emoji from 'remark-emoji';
 import Rehype from 'remark-rehype';
@@ -11,6 +12,7 @@ import ExtractFrontmatter from 'remark-extract-frontmatter';
 import type { Plugin } from 'vite';
 import type { PluggableList } from 'unified';
 import { links } from './plugins/links';
+import { expressions } from './plugins/expressions';
 import type { MarkdownPluginOptions } from './types';
 
 export function MarkdownPlugin(options?: MarkdownPluginOptions): Plugin {
@@ -54,7 +56,9 @@ async function parseMarkdown(content: string, options?: MarkdownPluginOptions) {
 
     // Rehype plugins
     [Rehype, { allowDangerousHtml: true }],
+    Raw,
     [Stringify, { allowDangerousHtml: true }],
+    expressions,
     links,
 
     // Custom rehype plugins
@@ -65,9 +69,5 @@ async function parseMarkdown(content: string, options?: MarkdownPluginOptions) {
     .use(plugins)
     .process(content);
 
-  const html = String(file)
-    .replaceAll('{{', '&lcub;&lcub;')
-    .replaceAll('}}', '&rcub;&rcub;');
-  
-  return `<template>${ html }</template>`;
+  return `<template>${ String(file) }</template>`;
 }

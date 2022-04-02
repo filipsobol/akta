@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "@fec/remark-a11y-emoji": "^3.1.0",
+    "rehype-raw": "^6.1.1",
     "rehype-stringify": "^9.0.3",
     "remark-emoji": "^3.0.2",
     "remark-extract-frontmatter": "^3.2.0",
