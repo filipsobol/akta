@@ -8,7 +8,7 @@ export default defineConfig({
     AktaPlugin(),
     MarkdownPlugin({
       remarkPlugins: [
-        [remarkShikiTwoslash.default, { theme: 'material-default' }]
+        [remarkShikiTwoslash.default, { theme: 'css-variables' }]
       ]
     })
   ],

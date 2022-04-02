@@ -1,19 +1,19 @@
 # Routing
 
-```ts twoslash title="test" { 1-3 }
+```ts twoslash title="test" { 2-4 }
 interface IdLabel {id: number, /* some fields */ }
 interface NameLabel {name: string, /* other fields */ }
 type NameOrId<T extends number | string> = T extends number ? IdLabel : NameLabel;
 // This comment should not be included
 
 // ---cut---
+// This is a comment
 function createLabel<T extends number | string>(idOrName: T): NameOrId<T> {
   throw "unimplemented"
 }
 
 let variable = createLabel("typescript");
 //  ^?
-
 // @errors: 2339
 variable.includes('123');
 ```

@@ -2,22 +2,43 @@
 @tailwind components;
 @tailwind utilities;
 
-code {
+:root {
+	--shiki-color-text: theme('colors.slate.600');
+	--shiki-color-background: theme('colors.slate.100');
+	--shiki-token-constant: theme('colors.slate.600');
+	--shiki-token-string: red; /* Not sure */
+	--shiki-token-comment: theme('colors.slate.400');
+	--shiki-token-keyword: theme('colors.fuchsia.600');
+	--shiki-token-parameter: red; /* Not sure */
+	--shiki-token-function: theme('colors.blue.600');
+	--shiki-token-string-expression: theme('colors.green.600');
+	--shiki-token-punctuation: theme('colors.slate.600');
+	--shiki-token-link: red; /* Not sure */
+}
+
+/* mini <code> blocks not inside formatted by Shiki */
+:not(.code-container) > code {
 	@apply py-0.5;
 	@apply px-2;
 	@apply rounded;
 	@apply bg-slate-100;
 }
 
+/* Shiki code blocks */
 pre {
-	@apply relative;
-	@apply rounded;
+	@apply mx-[-8px];
+	@apply md:mx-0;
+	@apply md:rounded;
+}
+
+pre code {
+	@apply w-full;
 }
 
 /* ---------- TITLE ---------- */
 pre .code-title {
 	@apply border-b;
-	@apply border-gray-600;
+	@apply border-gray-200;
 	@apply px-4;
 	@apply py-2;
 	@apply text-right;
@@ -33,7 +54,7 @@ pre.shiki div.dim {
 }
 
 pre.shiki div.highlight {
-	background: rgba(0, 0, 0, 0.3);
+	@apply bg-slate-200;
 	@apply opacity-100;
 }
 
@@ -144,7 +165,8 @@ pre .error {
 	@apply block;
 	@apply w-full;
 	@apply my-2;
-	@apply p-2;
+	@apply py-2;
+	@apply px-4;
 	@apply whitespace-pre-wrap;
 }
 
@@ -160,12 +182,12 @@ pre .error .code {
 /* Queries */
 pre .arrow {
 	@apply absolute;
-	@apply h-2;
-	@apply w-2;
-	@apply left-4;
+	@apply h-3;
+	@apply w-3;
+	@apply left-3;
 	@apply top-[-4px];
 	@apply rotate-45;
-	@apply bg-gray-300;
+	@apply bg-slate-500;
 }
 
 pre .popover {
@@ -174,8 +196,8 @@ pre .popover {
 	@apply px-4;
 	@apply py-1;
 	@apply my-3;
-	@apply bg-gray-300;
-	@apply text-gray-900;
+	@apply bg-slate-500;
+	@apply text-slate-100;
 	@apply rounded;
 }
 
