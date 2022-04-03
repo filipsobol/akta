@@ -68,6 +68,13 @@ async function parseMarkdown(content: string, options?: MarkdownPluginOptions) {
   const file = await processor
     .use(plugins)
     .process(content);
+  
+  let output = String(file);
 
-  return `<template>${ String(file) }</template>`;
+  if (options?.onOutputGenerated) {
+    output = options.onOutputGenerated(output) || output;
+  }
+
+  // `<span>` fixes https://github.com/vuejs/core/issues/5660
+  return `<template><span>${output}</span></template>`;
 }
