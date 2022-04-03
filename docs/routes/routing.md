@@ -6,16 +6,16 @@ Akta automatically generates routes based on the content of the `routes` folder.
 
 ## Basic example
 
-Let's create `home.vue` and `company/about_us.vue` components inside the `routes` folder like in the example below.
+Let's create `home.vue` and `company/about-us.vue` components inside the `routes` folder like in the example below.
 
 ```text
 routes/
 ├─ company/
-│  ├─ about_us.vue
+│  ├─ about-us.vue
 ├─ home.vue
 ```
 
-When you start the app, the `home.vue` component becomes a `/home` route. Because the `about_us.vue` component is inside the `company` folder, it becomes a `/company/about_us` route.
+When you start the app, the `home.vue` component becomes a `/home` route. Because the `about-us.vue` component is inside the `company` folder, it becomes a `/company/about-us` route.
 
 However, there are a few exceptions described below, where filenames don't directly correspond to route paths.
 
@@ -35,14 +35,6 @@ routes/
 ```
 
 The `index.vue` becomes a `/` route and becomes the home page of your application. The `company/index.vue` becomes a `/company` route.
-
-## `__layout` files
-
-TODO
-
-## `__layout.nested` files
-
-TODO
 
 ## Dynamic routes
 
@@ -106,7 +98,6 @@ Let's assume a structure like in the example below.
 
 ```text
 routes/
-
 ├─ [...params]/
 │  ├─ details.vue
 ├─ [...params].vue
