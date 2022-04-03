@@ -134,16 +134,20 @@ function getFilePaths(options: RoutingPluginParameters): Promise<string[]> {
 function getRouterPath(dir: string): string {
   const parsedSegments = dir
     .split('/')
-    .map(segment => {
+    .map((segment, index, segments) => {
       if (!segment.includes('[') || !segment.includes(']')) {
         return segment;
       }
 
-      if (segment.includes('...')) {
-        return segment.replace(/^\[\.{3}(.*)\]$/g, ':$1(.*)*') // Convert "[...id]" into ":id(.*)*"
+      if (!segment.includes('...')) {
+        return segment.replaceAll(/\[(.*)\]/g, ':$1'); // Convert "[id]" into ":id"
       }
-      
-      return segment.replaceAll(/\[(.*)\]/g, ':$1'); // Convert "[id]" into ":id"
+
+      if (index === segments.length - 1) {
+        return segment.replace(/^\[\.{3}(.*)\]$/g, ':$1(.*)*') // Convert "[...id]" file into ":id(.*)*"
+      }
+
+      return segment.replace(/^\[\.{3}(.*)\]$/g, ':$1(.*)+') // Convert "[...id]" folders into ":id(.*)+"
     });
 
   if (parsedSegments.at(-1) === 'index') {
