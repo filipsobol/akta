@@ -36,13 +36,21 @@ routes/
 
 The `index.vue` becomes a `/` route and becomes the home page of your application. The `company/index.vue` becomes a `/company` route.
 
+## `__layout` files
+
+TODO
+
+## `__layout.nested` files
+
+TODO
+
 ## Dynamic routes
 
 Dynamic routes allow you to handle requests where parts of the path are variable.
 
 ### Variable segments
 
-If only a single segment is variable, use can use square brackets with the name of that segment inside of it.
+If only a single segment is variable, use can use square brackets with the name of that segment inside of it, for example `[slug]`.
 
 The `blog/[slug].vue` file will be served for requests such as `/blog/hello` and `/blog/world`. The variable part of the URL will be passed as a prop to the component, matching the name you provided between the square brackets.
 
@@ -88,25 +96,30 @@ export default {
 </script>
 ```
 
-### Catch-all
+### Catch-all / 404 Not found
 
-There are cases when you don't know the structure of the URL, but still want a component to handle it. Most popular example is "catch-all" or 404 page, displayed to the user if the they visited the page that doesn't exist.
+There are cases when you don't know the structure of the URL, but still want a component to handle it. The most popular example is the "catch-all" or 404 page, displayed to the user if they visited a page that doesn't exist.
 
-Catch-all route — same as routes with variable segments — use the square brackets syntax, but additionally, they include three dots before the name of the parameter.
+Catch-all routes — same as routes with variable segments — use the square brackets syntax, but additionally, they include three dots before the name of the parameter, for example `[...params]`.
 
 Let's assume a structure like in the example below.
 
 ```text
 routes/
-├─ company/
-│  ├─ index.vue
+
+├─ [...params]/
+│  ├─ details.vue
 ├─ [...params].vue
 ├─ index.vue
 ```
 
-In such case, the `index.vue` component becomes a `/` route, `company/index.vue` becomes a `/company` route, but every other route will be handled by the `[...params].vue` component.
+In such case:
 
-The variable part of the URL will be passed as a prop to the component, matching the name you provided between the square brackets.
+* `index.vue` becomes a `/` route,
+* all routes **ending** with `details` (but not `/details` itself) are handled by the `[...params]/details.vue`,
+* all other routes will be handled by the `[...params].vue` component.
+
+The variable part of the URL will be passed to the component as a prop with the name you provided between the square brackets.
 
 ```vue title="[...params].vue"
 <template>
@@ -121,11 +134,3 @@ export default {
 ```
 
 The `params` props is an array of strings, after separating the matching URL by `/`.
-
-## `__layout` files
-
-TODO
-
-## `__layout.nested` files
-
-TODO
