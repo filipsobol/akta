@@ -1,12 +1,14 @@
 # Routing
 
-Akta automatically generates routes based on the content of the `routes` folder. Every file inside of it creates a route, which paths are based on the relative path to that folder and the filename.
+Akta has a filesystem-based router, which automatically generates routes based on the content of the `routes` folder.
 
-// TODO: Note about SSR and client navigation
+When the user first visits the page, they are served a server-rendered result, which is ready for browsers to be rendered. Then, the page becomes interactive in a process called "hydration" and every subsequent navigation is performed client-side (in the browser). This results in a faster and app-like experience because less data is sent over the network and the page isn't re-rendered on every navigation.
 
-## Basic example
+## Filesystem-based router
 
-Let's create `home.vue` and `company/about-us.vue` components inside the `routes` folder like in the example below.
+Every file inside of the `routes` folder creates a route, which path is based on the relative path from that folder, including the filename.
+
+To see how it works, let's create `home.vue` and `company/about-us.vue` components inside the `routes` folder like in the example below.
 
 ```text
 routes/
