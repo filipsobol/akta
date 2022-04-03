@@ -2,20 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-	--shiki-color-text: theme('colors.slate.600');
-	--shiki-color-background: theme('colors.slate.100');
-	--shiki-token-constant: theme('colors.slate.600');
-	--shiki-token-string: red; /* TODO */
-	--shiki-token-comment: theme('colors.slate.400');
-	--shiki-token-keyword: theme('colors.fuchsia.600');
-	--shiki-token-parameter: red; /* Not sure */
-	--shiki-token-function: theme('colors.blue.600');
-	--shiki-token-string-expression: theme('colors.green.600');
-	--shiki-token-punctuation: theme('colors.slate.600');
-	--shiki-token-link: red; /* TODO */
-}
-
 /* ---------- INLINE CODE BLOCK ---------- */
 :not(.code-container) > code {
 	@apply py-0.5;
