@@ -39,6 +39,6 @@
   },
   "devDependencies": {
     "@akta/plugin": "workspace:*",
-    "vite": "^2.9.0"
+    "vite": "^2.9.16"
   }
 }
